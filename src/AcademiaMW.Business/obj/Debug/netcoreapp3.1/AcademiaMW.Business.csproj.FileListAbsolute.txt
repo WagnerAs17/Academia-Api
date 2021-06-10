@@ -1,0 +1,12 @@
+C:\AcademiaMW\src\AcademiaMW.Business\bin\Debug\netcoreapp3.1\AcademiaMW.Business.deps.json
+C:\AcademiaMW\src\AcademiaMW.Business\bin\Debug\netcoreapp3.1\AcademiaMW.Business.dll
+C:\AcademiaMW\src\AcademiaMW.Business\bin\Debug\netcoreapp3.1\AcademiaMW.Business.pdb
+C:\AcademiaMW\src\AcademiaMW.Business\bin\Debug\netcoreapp3.1\AcademiaMW.Core.dll
+C:\AcademiaMW\src\AcademiaMW.Business\bin\Debug\netcoreapp3.1\AcademiaMW.Core.pdb
+C:\AcademiaMW\src\AcademiaMW.Business\obj\Debug\netcoreapp3.1\AcademiaMW.Business.csproj.AssemblyReference.cache
+C:\AcademiaMW\src\AcademiaMW.Business\obj\Debug\netcoreapp3.1\AcademiaMW.Business.AssemblyInfoInputs.cache
+C:\AcademiaMW\src\AcademiaMW.Business\obj\Debug\netcoreapp3.1\AcademiaMW.Business.AssemblyInfo.cs
+C:\AcademiaMW\src\AcademiaMW.Business\obj\Debug\netcoreapp3.1\AcademiaMW.Business.csproj.CoreCompileInputs.cache
+C:\AcademiaMW\src\AcademiaMW.Business\obj\Debug\netcoreapp3.1\AcademiaMW.Business.csproj.CopyComplete
+C:\AcademiaMW\src\AcademiaMW.Business\obj\Debug\netcoreapp3.1\AcademiaMW.Business.dll
+C:\AcademiaMW\src\AcademiaMW.Business\obj\Debug\netcoreapp3.1\AcademiaMW.Business.pdb

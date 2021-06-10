@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "dQ8Wg/DhgjCDwRdm0gxDEGfk9ZDF6IZDKKcvQCcDS7kUVJRBffQkjODs/Ysp/HsUAzSc9V7T7Fa++mh3O19etw==",
+  "success": true,
+  "projectFilePath": "C:\\AcademiaMW\\src\\AcademiaMW.Business\\AcademiaMW.Business.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\wagne\\.nuget\\packages\\fluentvalidation\\9.3.0\\fluentvalidation.9.3.0.nupkg.sha512"
+  ],
+  "logs": []
+}

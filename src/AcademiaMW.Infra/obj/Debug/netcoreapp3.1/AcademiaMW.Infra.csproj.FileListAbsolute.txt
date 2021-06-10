@@ -1,0 +1,17 @@
+C:\AcademiaMW\src\AcademiaMW.Infra\bin\Debug\netcoreapp3.1\AcademiaMW.Infra.deps.json
+C:\AcademiaMW\src\AcademiaMW.Infra\bin\Debug\netcoreapp3.1\AcademiaMW.Infra.runtimeconfig.json
+C:\AcademiaMW\src\AcademiaMW.Infra\bin\Debug\netcoreapp3.1\AcademiaMW.Infra.runtimeconfig.dev.json
+C:\AcademiaMW\src\AcademiaMW.Infra\bin\Debug\netcoreapp3.1\AcademiaMW.Infra.dll
+C:\AcademiaMW\src\AcademiaMW.Infra\bin\Debug\netcoreapp3.1\AcademiaMW.Infra.pdb
+C:\AcademiaMW\src\AcademiaMW.Infra\bin\Debug\netcoreapp3.1\AcademiaMW.Business.dll
+C:\AcademiaMW\src\AcademiaMW.Infra\bin\Debug\netcoreapp3.1\AcademiaMW.Core.dll
+C:\AcademiaMW\src\AcademiaMW.Infra\bin\Debug\netcoreapp3.1\AcademiaMW.Business.pdb
+C:\AcademiaMW\src\AcademiaMW.Infra\bin\Debug\netcoreapp3.1\AcademiaMW.Core.pdb
+C:\AcademiaMW\src\AcademiaMW.Infra\obj\Debug\netcoreapp3.1\AcademiaMW.Infra.csproj.AssemblyReference.cache
+C:\AcademiaMW\src\AcademiaMW.Infra\obj\Debug\netcoreapp3.1\AcademiaMW.Infra.AssemblyInfoInputs.cache
+C:\AcademiaMW\src\AcademiaMW.Infra\obj\Debug\netcoreapp3.1\AcademiaMW.Infra.AssemblyInfo.cs
+C:\AcademiaMW\src\AcademiaMW.Infra\obj\Debug\netcoreapp3.1\AcademiaMW.Infra.csproj.CoreCompileInputs.cache
+C:\AcademiaMW\src\AcademiaMW.Infra\obj\Debug\netcoreapp3.1\AcademiaMW.Infra.csproj.CopyComplete
+C:\AcademiaMW\src\AcademiaMW.Infra\obj\Debug\netcoreapp3.1\AcademiaMW.Infra.dll
+C:\AcademiaMW\src\AcademiaMW.Infra\obj\Debug\netcoreapp3.1\AcademiaMW.Infra.pdb
+C:\AcademiaMW\src\AcademiaMW.Infra\obj\Debug\netcoreapp3.1\AcademiaMW.Infra.genruntimeconfig.cache

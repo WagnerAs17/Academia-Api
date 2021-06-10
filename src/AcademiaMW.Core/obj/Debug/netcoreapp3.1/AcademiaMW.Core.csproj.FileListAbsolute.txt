@@ -1,0 +1,8 @@
+C:\AcademiaMW\src\AcademiaMW.Core\bin\Debug\netcoreapp3.1\AcademiaMW.Core.deps.json
+C:\AcademiaMW\src\AcademiaMW.Core\bin\Debug\netcoreapp3.1\AcademiaMW.Core.dll
+C:\AcademiaMW\src\AcademiaMW.Core\bin\Debug\netcoreapp3.1\AcademiaMW.Core.pdb
+C:\AcademiaMW\src\AcademiaMW.Core\obj\Debug\netcoreapp3.1\AcademiaMW.Core.AssemblyInfoInputs.cache
+C:\AcademiaMW\src\AcademiaMW.Core\obj\Debug\netcoreapp3.1\AcademiaMW.Core.AssemblyInfo.cs
+C:\AcademiaMW\src\AcademiaMW.Core\obj\Debug\netcoreapp3.1\AcademiaMW.Core.csproj.CoreCompileInputs.cache
+C:\AcademiaMW\src\AcademiaMW.Core\obj\Debug\netcoreapp3.1\AcademiaMW.Core.dll
+C:\AcademiaMW\src\AcademiaMW.Core\obj\Debug\netcoreapp3.1\AcademiaMW.Core.pdb
