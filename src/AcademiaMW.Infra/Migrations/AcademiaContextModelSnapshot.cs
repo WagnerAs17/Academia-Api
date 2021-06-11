@@ -23,14 +23,17 @@ namespace AcademiaMW.Infra.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("char(36)");
 
+                    b.Property<Guid>("ContratoId")
+                        .HasColumnType("char(36)");
+
                     b.Property<DateTime>("DataNascimento")
                         .HasColumnType("datetime(6)");
 
+                    b.Property<string>("Imagem")
+                        .HasColumnType("varchar(100)");
+
                     b.Property<string>("Nome")
                         .HasColumnType("varchar(500)");
-
-                    b.Property<Guid>("PlanoValorId")
-                        .HasColumnType("char(36)");
 
                     b.Property<Guid>("UserId")
                         .HasColumnType("char(36)");
@@ -40,11 +43,42 @@ namespace AcademiaMW.Infra.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("PlanoValorId");
+                    b.HasIndex("ContratoId");
 
                     b.HasIndex("UsuarioId");
 
                     b.ToTable("Clientes");
+                });
+
+            modelBuilder.Entity("AcademiaMW.Business.Models.Contrato", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("char(36)");
+
+                    b.Property<bool>("Ativo")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<DateTime>("DataAquisicao")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<DateTime>("DataVencimento")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<decimal>("Percentual")
+                        .HasColumnType("decimal(65,30)");
+
+                    b.Property<Guid>("PlanoId")
+                        .HasColumnType("char(36)");
+
+                    b.Property<int>("TempoContrato")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PlanoId");
+
+                    b.ToTable("Contratos");
                 });
 
             modelBuilder.Entity("AcademiaMW.Business.Models.Permissao", b =>
@@ -77,44 +111,25 @@ namespace AcademiaMW.Infra.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("char(36)");
 
+                    b.Property<bool>("Ativo")
+                        .HasColumnType("tinyint(1)");
+
                     b.Property<DateTime>("DataCriacao")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<DateTime?>("DataDesativacao")
                         .HasColumnType("datetime(6)");
 
                     b.Property<string>("Nome")
                         .IsRequired()
                         .HasColumnType("varchar(300)");
 
-                    b.HasKey("Id");
-
-                    b.ToTable("Planos");
-                });
-
-            modelBuilder.Entity("AcademiaMW.Business.Models.PlanoValor", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("char(36)");
-
-                    b.Property<bool>("Ativo")
-                        .HasColumnType("tinyint(1)");
-
-                    b.Property<DateTime>("DataInicio")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<DateTime?>("DataTermino")
-                        .HasColumnType("datetime(6)");
-
-                    b.Property<Guid>("PlanoId")
-                        .HasColumnType("char(36)");
-
                     b.Property<decimal>("Valor")
                         .HasColumnType("decimal(65,30)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("PlanoId");
-
-                    b.ToTable("PlanoValores");
+                    b.ToTable("Planos");
                 });
 
             modelBuilder.Entity("AcademiaMW.Business.Models.Usuario", b =>
@@ -129,6 +144,9 @@ namespace AcademiaMW.Infra.Migrations
                     b.Property<bool>("EmailConfirmado")
                         .HasColumnType("tinyint(1)");
 
+                    b.Property<string>("Senha")
+                        .HasColumnType("varchar(100)");
+
                     b.HasKey("Id");
 
                     b.ToTable("Usuarios");
@@ -136,9 +154,9 @@ namespace AcademiaMW.Infra.Migrations
 
             modelBuilder.Entity("AcademiaMW.Business.Models.Cliente", b =>
                 {
-                    b.HasOne("AcademiaMW.Business.Models.PlanoValor", "PlanoValor")
+                    b.HasOne("AcademiaMW.Business.Models.Contrato", "Contrato")
                         .WithMany()
-                        .HasForeignKey("PlanoValorId")
+                        .HasForeignKey("ContratoId")
                         .IsRequired();
 
                     b.HasOne("AcademiaMW.Business.Models.Usuario", "Usuario")
@@ -212,19 +230,19 @@ namespace AcademiaMW.Infra.Migrations
                         });
                 });
 
+            modelBuilder.Entity("AcademiaMW.Business.Models.Contrato", b =>
+                {
+                    b.HasOne("AcademiaMW.Business.Models.Plano", "Plano")
+                        .WithMany("Contratos")
+                        .HasForeignKey("PlanoId")
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("AcademiaMW.Business.Models.Permissao", b =>
                 {
                     b.HasOne("AcademiaMW.Business.Models.Usuario", "Usuario")
                         .WithMany("Permissoes")
                         .HasForeignKey("UsuarioId")
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("AcademiaMW.Business.Models.PlanoValor", b =>
-                {
-                    b.HasOne("AcademiaMW.Business.Models.Plano", "Plano")
-                        .WithMany("PlanoValores")
-                        .HasForeignKey("PlanoId")
                         .IsRequired();
                 });
 #pragma warning restore 612, 618

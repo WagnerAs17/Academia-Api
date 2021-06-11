@@ -1,6 +1,7 @@
-﻿using AcademiaMW.Core.Domain;
+﻿using AcademiaMW.Business.Validations;
+using AcademiaMW.Core.Domain;
+using FluentValidation.Results;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 
 namespace AcademiaMW.Business.Models
@@ -9,15 +10,33 @@ namespace AcademiaMW.Business.Models
     {
         public string Nome { get; private set; }
         public DateTime DataCriacao { get; private set; }
+        public DateTime? DataDesativacao { get; private set; }
+        public decimal Valor { get; set; }
+        public bool Ativo { get; set; }
 
         //EF
-        public ICollection<PlanoValor> PlanoValores { get; set; }
         protected Plano() { }
+        public ICollection<Contrato> Contratos { get; set; }
 
-        public Plano(string nome)
+        public Plano(string nome, decimal valor)
         {
             Nome = nome;
             DataCriacao = DateTime.Now;
+            Valor = valor;
+            Ativo = true;
+        }
+
+        public void DesativarPlano() 
+        {
+            DataDesativacao = DateTime.Now;
+            Ativo = false;
+        }
+
+        public override bool EhValido()
+        {
+            var validator = new PlanoValidation().Validate(this);
+
+            return validator.IsValid;
         }
     }
 }

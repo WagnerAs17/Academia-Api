@@ -7,11 +7,15 @@ namespace AcademiaMW.Infra.Data
 {
     public class AcademiaContext : DbContext
     {
-        public AcademiaContext(DbContextOptions<AcademiaContext> options) : base(options)
+        public AcademiaContext(DbContextOptions<AcademiaContext> options) 
+            : base(options)
         {}
 
         public DbSet<Usuario> Usuarios { get; set; }
         public DbSet<Permissao> Permissoes { get; set; }
+        public DbSet<Cliente> Clientes { get; set; }
+        public DbSet<Contrato> Contratos { get; set; }
+        public DbSet<Plano> Planos { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Ignore<ValidationResult>();

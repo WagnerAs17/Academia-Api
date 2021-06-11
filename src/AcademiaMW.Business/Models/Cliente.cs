@@ -3,49 +3,48 @@ using AcademiaMW.Business.Validations;
 using FluentValidation.Results;
 using System;
 using AcademiaMW.Core.Domain;
+using AcademiaMW.Business.Enum;
 
 namespace AcademiaMW.Business.Models
 {
     public class Cliente : Entity, IAggregateRoot
     {
         public string Nome { get; private set; }
+        public string Imagem { get; set; }
         public CPF CPF { get; private set; }
         public Email Email { get; set; }
         public DateTime DataNascimento { get; private set; }
         public Endereco Endereco { get; private set; }
-        public ValidationResult ValidationResult { get; private set; }
+        
 
         //EF
         public Usuario Usuario { get; set; }
         public Guid UserId { get; set; }
-        public PlanoValor PlanoValor { get; set; }
-        public Guid PlanoValorId { get; set; }
-
+        public Contrato Contrato { get; set; }
+        public Guid ContratoId { get; set; }
         protected Cliente() { }
 
         public Cliente
         (
-            Guid userId,
-            Guid planoValorId,
+            Usuario usuario,
+            Contrato contrato,
             string nome, 
             DateTime dataNascimento, 
             string cpf, 
-            string email,
-            Endereco endereco
+            string email
         )
         {
-            UserId = userId;
-            PlanoValorId = planoValorId;
+            Usuario = usuario;
+            Contrato = contrato;
             Nome = nome;
             DataNascimento = dataNascimento;
             CPF = new CPF(cpf);
             Email = new Email(email);
-            Endereco = endereco;
         }
 
-        public bool EhMaiorDeTrezeAnos()
+        public bool EhMenorDeTrezeAnos()
         {
-            return (DateTime.Now.Year - DataNascimento.Year) > 13;
+            return (DateTime.Now.Year - DataNascimento.Year) <= 13;
         }
 
         public override bool EhValido()
@@ -53,6 +52,27 @@ namespace AcademiaMW.Business.Models
             ValidationResult = new ClienteValidation().Validate(this);
 
             return ValidationResult.IsValid;
+        }
+
+        public void AdicionarEndereco(Endereco endereco)
+        {
+            Endereco = endereco;
+        }
+
+        public static class ClienteFactory
+        {
+            public static Cliente CriarClienteComContrato(
+                string senha, Guid planoId, TempoContrato tempoContrato, 
+                decimal percentual,string nome, DateTime dataNascimento, 
+                string cpf, string email)
+            {
+                return new Cliente(new Usuario(senha), 
+                    new Contrato(planoId, tempoContrato, percentual), 
+                    nome, dataNascimento, cpf, email)
+                {
+
+                };
+            }
         }
     }
 

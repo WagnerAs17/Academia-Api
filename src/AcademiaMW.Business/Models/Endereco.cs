@@ -1,4 +1,7 @@
-﻿namespace AcademiaMW.Business.Models
+﻿using AcademiaMW.Business.Validations;
+using FluentValidation.Results;
+
+namespace AcademiaMW.Business.Models
 {
     public class Endereco
     {
@@ -9,6 +12,7 @@
         public string Cep { get; private set; }
         public string Cidade { get; private set; }
         public string Estado { get; private set; }
+        public ValidationResult ValidationResult { get; set; }
 
         public Endereco
         (
@@ -26,6 +30,15 @@
             Cep = cep;
             Cidade = cidade;
             Estado = estado;
+
+            ValidationResult = new ValidationResult();
+        }
+
+        public bool EhValido()
+        {
+            ValidationResult = new EnderecoValidation().Validate(this);
+
+            return ValidationResult.IsValid;
         }
     }
 }

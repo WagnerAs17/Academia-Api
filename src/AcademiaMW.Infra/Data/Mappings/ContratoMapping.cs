@@ -4,16 +4,16 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace AcademiaMW.Infra.Data.Mappings
 {
-    public class PlanoValorMapping : IEntityTypeConfiguration<PlanoValor>
+    public class ContratoMapping : IEntityTypeConfiguration<Contrato>
     {
-        public void Configure(EntityTypeBuilder<PlanoValor> builder)
+        public void Configure(EntityTypeBuilder<Contrato> builder)
         {
             builder.HasKey(x => x.Id);
 
             builder.HasOne(x => x.Plano)
-                .WithMany(x => x.PlanoValores);
+                .WithMany(x => x.Contratos);
 
-            builder.ToTable("PlanoValores");
+            builder.ToTable("Contratos");
         }
     }
 }

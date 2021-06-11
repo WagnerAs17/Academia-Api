@@ -1,6 +1,7 @@
 ﻿using AcademiaMW.Infra.Data;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -17,6 +18,11 @@ namespace AcademiaMW.Configuration
             services.AddDbContext<AcademiaContext>(options =>
             {
                 options.UseMySql(configuration.GetConnectionString("DefaultConnection"));
+            });
+
+            services.Configure<ApiBehaviorOptions>(options =>
+            {
+                options.SuppressModelStateInvalidFilter = true;
             });
         }
 

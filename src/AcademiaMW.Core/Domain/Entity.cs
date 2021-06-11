@@ -6,9 +6,11 @@ namespace AcademiaMW.Core.Domain
     public abstract class Entity
     {
         public Guid Id { get; private set; }
+        public ValidationResult ValidationResult { get; set; }
         public Entity()
         {
             Id = Guid.NewGuid();
+            ValidationResult = new ValidationResult();
         }
 
         public override bool Equals(object obj)

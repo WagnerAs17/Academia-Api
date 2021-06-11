@@ -8,12 +8,17 @@ namespace AcademiaMW.Business.Models
         public bool EmailConfirmado { get; private set; }
         public bool Ativo { get; private set; }
         public ICollection<Permissao> Permissoes { get; set; }
+        public string Senha { get; private set; }
 
-        public Usuario()
+        public Usuario(string senha)
         {
+            Senha = senha;
             EmailConfirmado = false;
             Ativo = false;
         }
+
+        //EF
+        protected Usuario() { }
 
         public void AtivarEmail()
         {
