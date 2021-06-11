@@ -28,7 +28,7 @@ namespace AcademiaMW.Business.Models
 
         public decimal CalcularValorPlano()
         {
-            return Plano.Valor * Percentual;
+            return Plano.Valor - (Plano.Valor * Percentual / 100);
         }
 
         public bool ContratoValido()

@@ -16,5 +16,17 @@ namespace AcademiaMW.Mapper
                     clienteDto.Nome, clienteDto.DataNascimento,
                     clienteDto.Cpf, clienteDto.Email);
         }
+
+        public static ClienteRegistradoDto ClienteParaClienteRegistradoDto(Cliente cliente)
+        {
+            return new ClienteRegistradoDto
+            {
+                Nome = cliente.Nome,
+                Email = cliente.Email.Endereco,
+                Plano = cliente.Contrato.Plano.Nome,
+                Valor = cliente.Contrato.CalcularValorPlano(),
+                VencimentoContrato = cliente.Contrato.DataVencimento
+            };
+        }
     }
 }

@@ -1,5 +1,7 @@
 ﻿using AcademiaMW.Business.Models;
+using AcademiaMW.Business.Models.Repository;
 using AcademiaMW.Business.Notifications;
+using AcademiaMW.Business.Service.Interfaces;
 using System;
 using System.Threading.Tasks;
 
@@ -7,19 +9,28 @@ namespace AcademiaMW.Business.Service
 {
     public class PlanoService : Service, IPlanoService
     {
-        public PlanoService(INotificador notificador) : base(notificador)
-        {
+        private readonly IPlanoRepository _planoRepository;
 
+        public PlanoService
+        (
+            INotificador notificador, 
+            IPlanoRepository planoRepository
+        ) : base(notificador)
+        {
+            _planoRepository = planoRepository;
         }
 
-        public Task<bool> Adicionar(Plano plano)
+        public async Task<bool> Adicionar(Plano plano)
         {
-            throw new NotImplementedException();
-        }
-    }
+            if (!plano.EhValido())
+            {
+                Notificar(plano.ValidationResult);
+                return false;
+            }
 
-    public interface IPlanoService
-    {
-        Task<bool> Adicionar(Plano plano);
+            await _planoRepository.Adicionar(plano);
+
+            return true;
+        }
     }
 }

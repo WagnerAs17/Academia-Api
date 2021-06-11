@@ -1,6 +1,7 @@
 ﻿using AcademiaMW.Business.Models;
 using AcademiaMW.Business.Models.Repository;
 using AcademiaMW.Business.Notifications;
+using System;
 using System.Threading.Tasks;
 
 namespace AcademiaMW.Business.Service
@@ -30,10 +31,10 @@ namespace AcademiaMW.Business.Service
 
             return true;
         }
-    }
 
-    public interface IClienteService
-    {
-        Task<bool> Matricular(Cliente cliente);
+        public async Task<Cliente> ObterCliente(Guid id)
+        {
+            return await _clienteRepository.ObterClientePorId(id);
+        }
     }
 }

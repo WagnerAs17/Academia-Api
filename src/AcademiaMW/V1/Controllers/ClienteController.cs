@@ -1,13 +1,16 @@
 ﻿using AcademiaMW.Business.Notifications;
 using AcademiaMW.Business.Service;
+using AcademiaMW.Controllers;
 using AcademiaMW.Dtos;
 using AcademiaMW.Mapper;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Threading.Tasks;
 
-namespace AcademiaMW.Controllers
+namespace AcademiaMW.V1.Controllers
 {
-    [Route("api/clientes")]
+    [ApiVersion("1.0")]
+    [Route("api/v{version:apiVersion}/clientes")]
     public class ClienteController : MainController
     {
         private readonly IClienteService _clienteService;
@@ -32,6 +35,14 @@ namespace AcademiaMW.Controllers
             await _clienteService.Matricular(cliente);
 
             return CustomResponse();
+        }
+
+        [HttpGet("{id:guid}")]
+        public async Task<IActionResult> ObterClientePorId(Guid id)
+        {
+            var cliente = await _clienteService.ObterCliente(id);
+
+            return CustomResponse(ClienteMapper.ClienteParaClienteRegistradoDto(cliente));
         }
     }
 }
