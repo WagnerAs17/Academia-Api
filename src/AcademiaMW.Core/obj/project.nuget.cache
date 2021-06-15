@@ -1,10 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "jWS8gfGn3j9CUmlM3Yf2DSh2pCY+R/IO0HQDifMYCDwCMhWrnjSr9+yCTPYCG2A20TXwgwUjUbREIiVUdjbqrg==",
+  "dgSpecHash": "44uYJc13OPizPE0hm17vSSxP68JAaaiaIAPcygxxkI8FNdmtcSSQzkAd4APKZQryOo08tTd67KbcUPipoKnODw==",
   "success": true,
   "projectFilePath": "C:\\AcademiaMW\\src\\AcademiaMW.Core\\AcademiaMW.Core.csproj",
   "expectedPackageFiles": [
-    "C:\\Users\\wagne\\.nuget\\packages\\fluentvalidation\\9.3.0\\fluentvalidation.9.3.0.nupkg.sha512"
+    "C:\\Users\\wagne\\.nuget\\packages\\fluentvalidation\\9.3.0\\fluentvalidation.9.3.0.nupkg.sha512",
+    "C:\\Users\\wagne\\.nuget\\packages\\mediatr\\8.0.1\\mediatr.8.0.1.nupkg.sha512"
   ],
   "logs": []
 }

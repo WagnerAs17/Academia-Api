@@ -44,7 +44,7 @@ namespace AcademiaMW.Business.Validations
                 .WithMessage("Informe o estado.");
 
             RuleFor(x => x.Estado.Length)
-                .Equal(2)
+                .NotEqual(2)
                 .WithMessage("O Estado deve ter 2 caracteres");
         }
     }

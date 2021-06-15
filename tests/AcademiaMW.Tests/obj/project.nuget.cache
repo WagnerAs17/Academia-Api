@@ -1,11 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "XCuJrXljEjdeGb8rt7Oiva9FWSd7RP0r3y85gjuQ9cUkYTmjWqr4a6XkfXADXle6hVYcnqomm9MIozyfJMcy/w==",
+  "dgSpecHash": "IrSYBqD8Y4xG7bP2/2nz1RiO+MzzzwQTstfkhUlL6lR9bopwS5TisnPXd+MQirT8VJ+YStZgwTH09kI9eZv7Nw==",
   "success": true,
   "projectFilePath": "C:\\AcademiaMW\\tests\\AcademiaMW.Tests\\AcademiaMW.Tests.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\wagne\\.nuget\\packages\\coverlet.collector\\1.3.0\\coverlet.collector.1.3.0.nupkg.sha512",
     "C:\\Users\\wagne\\.nuget\\packages\\fluentvalidation\\9.3.0\\fluentvalidation.9.3.0.nupkg.sha512",
+    "C:\\Users\\wagne\\.nuget\\packages\\mediatr\\8.0.1\\mediatr.8.0.1.nupkg.sha512",
     "C:\\Users\\wagne\\.nuget\\packages\\microsoft.codecoverage\\16.7.1\\microsoft.codecoverage.16.7.1.nupkg.sha512",
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\microsoft.csharp\\4.0.1\\microsoft.csharp.4.0.1.nupkg.sha512",
     "C:\\Users\\wagne\\.nuget\\packages\\microsoft.net.test.sdk\\16.7.1\\microsoft.net.test.sdk.16.7.1.nupkg.sha512",

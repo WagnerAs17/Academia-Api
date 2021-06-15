@@ -8,11 +8,11 @@ namespace AcademiaMW.Business.Validations
         public PlanoValidation()
         {
             RuleFor(x => x.Valor)
-                .Equal(decimal.Zero)
+                .NotEmpty()
                 .WithMessage("O valor do plano não pode ser zero.");
 
             RuleFor(x => x.Nome)
-                .Empty()
+                .NotEmpty()
                 .WithMessage("O nome do plano é obrigatório.");
         }
     }

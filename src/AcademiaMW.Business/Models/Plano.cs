@@ -34,9 +34,9 @@ namespace AcademiaMW.Business.Models
 
         public override bool EhValido()
         {
-            var validator = new PlanoValidation().Validate(this);
+            ValidationResult = new PlanoValidation().Validate(this);
 
-            return validator.IsValid;
+            return ValidationResult.IsValid;
         }
     }
 }

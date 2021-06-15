@@ -24,6 +24,11 @@ namespace AcademiaMW.Business.Models
         {
             EmailConfirmado = true;
         }
+
+        public void AdicionarHashSenha(string hash)
+        {
+            Senha = hash;
+        }
     }
 
 }

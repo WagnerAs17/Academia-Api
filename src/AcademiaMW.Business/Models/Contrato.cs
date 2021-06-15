@@ -41,5 +41,12 @@ namespace AcademiaMW.Business.Models
             Ativo = false;
         }
 
+        public bool TempoDeContratoValido()
+        {
+            return TempoContrato == TempoContrato.TresMeses ||
+                TempoContrato == TempoContrato.SeisMeses ||
+                TempoContrato == TempoContrato.UmAno;
+        }
+
     }
 }

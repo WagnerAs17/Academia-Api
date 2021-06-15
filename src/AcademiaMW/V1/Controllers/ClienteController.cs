@@ -1,6 +1,9 @@
-﻿using AcademiaMW.Business.Notifications;
+﻿using AcademiaMW.Business.Models;
+using AcademiaMW.Business.Models.Repository;
+using AcademiaMW.Business.Notifications;
 using AcademiaMW.Business.Service;
 using AcademiaMW.Controllers;
+using AcademiaMW.Core.Domain;
 using AcademiaMW.Dtos;
 using AcademiaMW.Mapper;
 using Microsoft.AspNetCore.Mvc;
@@ -14,14 +17,17 @@ namespace AcademiaMW.V1.Controllers
     public class ClienteController : MainController
     {
         private readonly IClienteService _clienteService;
+        private IClienteRepository _clienteRepository;
 
         public ClienteController
         (
             INotificador notificador,
-            IClienteService clienteService
+            IClienteService clienteService,
+            IClienteRepository clienteRepository
         ) : base(notificador)
         {
             _clienteService = clienteService;
+            _clienteRepository = clienteRepository;
         }
 
         [HttpPost]
@@ -42,7 +48,17 @@ namespace AcademiaMW.V1.Controllers
         {
             var cliente = await _clienteService.ObterCliente(id);
 
+            if (cliente is null)
+                return NotFound();
+
             return CustomResponse(ClienteMapper.ClienteParaClienteRegistradoDto(cliente));
+        }
+
+        [HttpGet]
+        public async Task<Paginated<ClienteRegistradoDto>> ObterTodos([FromQuery] Pagination pagination)
+        {
+            return ClienteMapper.PaginatedClientesParaClientesDto(
+                await _clienteRepository.ObterTodos(pagination));
         }
     }
 }

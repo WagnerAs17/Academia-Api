@@ -1,4 +1,5 @@
 ﻿using AcademiaMW.Infra.Data;
+using AcademiaMW.Infra.Email;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
@@ -15,19 +16,8 @@ namespace AcademiaMW.Configuration
         {
             services.AddControllers();
 
-            services.AddApiVersioning(options =>
-            {
-                options.AssumeDefaultVersionWhenUnspecified = true;
-                options.DefaultApiVersion = new ApiVersion(1, 0);
-                options.ReportApiVersions = true;
-            });
-
-            services.AddVersionedApiExplorer(options =>
-            {
-                options.GroupNameFormat = "'v'VVV";
-                options.SubstituteApiVersionInUrl = true;
-            });
-
+            services.ApiVersioning();
+            
             services.AddDbContext<AcademiaContext>(options =>
             {
                 options.UseMySql(configuration.GetConnectionString("DefaultConnection"));
@@ -37,6 +27,9 @@ namespace AcademiaMW.Configuration
             {
                 options.SuppressModelStateInvalidFilter = true;
             });
+
+            var emailOptions = configuration.GetSection("EmailOptions");
+            services.Configure<EmailOptions>(emailOptions);
         }
 
         public static void UseApiConfiguration(this IApplicationBuilder app, IWebHostEnvironment env)
@@ -56,6 +49,22 @@ namespace AcademiaMW.Configuration
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+            });
+        }
+
+        private static void ApiVersioning(this IServiceCollection services )
+        {
+            services.AddApiVersioning(options =>
+            {
+                options.AssumeDefaultVersionWhenUnspecified = true;
+                options.DefaultApiVersion = new ApiVersion(1, 0);
+                options.ReportApiVersions = true;
+            });
+
+            services.AddVersionedApiExplorer(options =>
+            {
+                options.GroupNameFormat = "'v'VVV";
+                options.SubstituteApiVersionInUrl = true;
             });
         }
     }
