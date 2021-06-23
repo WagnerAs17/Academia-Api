@@ -3,7 +3,7 @@ using BC = BCrypt.Net.BCrypt;
 
 namespace AcademiaMW.Infra.Security
 {
-    public class ArgonPasswordHash : IArgonPasswordHash
+    public class BcryptPasswordHasher : IBCryptPasswordHasher
     {
 
         public string GetHashPassword(string password)

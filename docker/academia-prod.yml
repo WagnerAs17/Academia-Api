@@ -1,0 +1,35 @@
+version: "3"
+
+services:
+  api:
+    image: wagneralmeida17/academia-api:latest
+    container_name: academia-api
+    build:
+      context: ../src
+      dockerfile: ./AcademiaMW/Dockerfile
+    ports:
+      - "5001:5001"
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ASPNETCORE_URLS=http://*:5001
+    networks:
+      - academia-net
+    depends_on:
+      - db
+  db:
+    image: mysql:5.7
+    container_name: db_mysql
+    environment:
+      MYSQL_RANDOM_ROOT_PASSWORD: 1
+      MYSQL_DATABASE: DBAcademia
+      MYSQL_USER: academiauser
+      MYSQL_PASSWORD: Tricolor19#
+    ports:
+      - "3303:3303"
+    restart: always
+    networks:
+      - academia-net
+
+networks:
+  academia-net:
+    driver: bridge

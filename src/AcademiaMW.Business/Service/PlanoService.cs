@@ -2,7 +2,7 @@
 using AcademiaMW.Business.Models.Repository;
 using AcademiaMW.Business.Notifications;
 using AcademiaMW.Business.Service.Interfaces;
-using System;
+using AcademiaMW.Core.Domain;
 using System.Threading.Tasks;
 
 namespace AcademiaMW.Business.Service
@@ -31,6 +31,11 @@ namespace AcademiaMW.Business.Service
             await _planoRepository.Adicionar(plano);
 
             return true;
+        }
+
+        public async Task<Paginated<Plano>> ObterPlanosPaginados(Pagination pagination)
+        {
+            return await _planoRepository.ObterPlanos(pagination);
         }
     }
 }

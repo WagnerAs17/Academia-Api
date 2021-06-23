@@ -6,6 +6,8 @@ using AcademiaMW.Controllers;
 using AcademiaMW.Core.Domain;
 using AcademiaMW.Dtos;
 using AcademiaMW.Mapper;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Threading.Tasks;
@@ -14,6 +16,7 @@ namespace AcademiaMW.V1.Controllers
 {
     [ApiVersion("1.0")]
     [Route("api/v{version:apiVersion}/clientes")]
+    [Authorize]
     public class ClienteController : MainController
     {
         private readonly IClienteService _clienteService;
@@ -30,7 +33,10 @@ namespace AcademiaMW.V1.Controllers
             _clienteRepository = clienteRepository;
         }
 
+        [AllowAnonymous]
         [HttpPost]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> Matricular([FromBody] ClienteDto novoCliente)
         {
             if (!ModelState.IsValid)
@@ -44,6 +50,8 @@ namespace AcademiaMW.V1.Controllers
         }
 
         [HttpGet("{id:guid}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> ObterClientePorId(Guid id)
         {
             var cliente = await _clienteService.ObterCliente(id);
@@ -55,6 +63,7 @@ namespace AcademiaMW.V1.Controllers
         }
 
         [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<Paginated<ClienteRegistradoDto>> ObterTodos([FromQuery] Pagination pagination)
         {
             return ClienteMapper.PaginatedClientesParaClientesDto(

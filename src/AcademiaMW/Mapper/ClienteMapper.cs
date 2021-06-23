@@ -22,6 +22,7 @@ namespace AcademiaMW.Mapper
         {
             return new ClienteRegistradoDto
             {
+                Id = cliente.Id,
                 Nome = cliente.Nome,
                 Email = cliente.Email.Endereco,
                 Plano = cliente.Contrato.Plano.Nome,

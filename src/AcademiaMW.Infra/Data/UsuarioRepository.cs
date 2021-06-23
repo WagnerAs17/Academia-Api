@@ -1,7 +1,6 @@
 ﻿using AcademiaMW.Business.Models;
 using AcademiaMW.Business.Models.Repository;
 using Microsoft.EntityFrameworkCore;
-using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -16,9 +15,10 @@ namespace AcademiaMW.Infra.Data
             _context = context;
         }
 
-        public async Task<Usuario> ObterUsuario(Guid id)
+        public async Task<Cliente> ObterCliente(string email)
         {
-            return await _context.Usuarios.FirstOrDefaultAsync(x => x.Id == id);
+            return await _context.Clientes.Include(x => x.Usuario)
+                .FirstOrDefaultAsync(x => x.Email.Endereco == email);
         }
 
         public async Task AdicionarAsync(Usuario usuario)

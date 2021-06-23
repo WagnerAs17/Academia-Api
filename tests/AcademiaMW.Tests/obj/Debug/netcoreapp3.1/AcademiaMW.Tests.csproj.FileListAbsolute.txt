@@ -100,3 +100,4 @@ C:\AcademiaMW\tests\AcademiaMW.Tests\obj\Debug\netcoreapp3.1\AcademiaMW.Tests.cs
 C:\AcademiaMW\tests\AcademiaMW.Tests\obj\Debug\netcoreapp3.1\AcademiaMW.Tests.dll
 C:\AcademiaMW\tests\AcademiaMW.Tests\obj\Debug\netcoreapp3.1\AcademiaMW.Tests.pdb
 C:\AcademiaMW\tests\AcademiaMW.Tests\obj\Debug\netcoreapp3.1\AcademiaMW.Tests.genruntimeconfig.cache
+C:\AcademiaMW\tests\AcademiaMW.Tests\bin\Debug\netcoreapp3.1\MediatR.dll

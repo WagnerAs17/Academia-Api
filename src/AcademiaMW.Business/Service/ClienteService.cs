@@ -10,18 +10,17 @@ namespace AcademiaMW.Business.Service
     public class ClienteService : Service, IClienteService
     {
         private readonly IClienteRepository _clienteRepository;
-        private readonly IArgonPasswordHash _passwordHash;
+        private readonly IBCryptPasswordHasher _passwordHash;
 
         public ClienteService
         (
             INotificador notificador,
             IClienteRepository clienteRepository,
-            IArgonPasswordHash passwordHash
+            IBCryptPasswordHasher passwordHash
         ): base(notificador)
         {
             _clienteRepository = clienteRepository;
             _passwordHash = passwordHash;
-
         }
 
         public async Task<bool> Matricular(Cliente cliente)
