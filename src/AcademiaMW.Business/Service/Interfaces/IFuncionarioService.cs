@@ -3,8 +3,8 @@ using System.Threading.Tasks;
 
 namespace AcademiaMW.Business.Service.Interfaces
 {
-    public interface IUsuarioService : IService
+    public interface IFuncionarioService : IService
     {
-        Task<Cliente> AutenticarCliente(string email, string senha);
+        Task<bool> Matricular(Funcionario funcionario);
     }
 }

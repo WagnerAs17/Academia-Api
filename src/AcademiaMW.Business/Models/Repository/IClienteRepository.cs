@@ -5,9 +5,9 @@ using System.Threading.Tasks;
 
 namespace AcademiaMW.Business.Models.Repository
 {
-    public interface IClienteRepository
+    public interface IClienteRepository : IRepository<Cliente>
     {
-        Task Adicionar(Cliente cliente);
+        Task<bool> Adicionar(Cliente cliente);
         Task<Cliente> ObterClientePorId(Guid id);
         Task<Paginated<Cliente>> ObterTodos(Pagination pagination);
         Task<bool> Existe(Expression<Func<Cliente, bool>> expression);

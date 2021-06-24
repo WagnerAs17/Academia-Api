@@ -1,6 +1,6 @@
 ﻿using AcademiaMW.Core.Domain;
 
-namespace AcademiaMW.Core.Data
+namespace AcademiaMW.Business.Models.Repository
 {
     public interface IRepository<T> where T : IAggregateRoot
     {

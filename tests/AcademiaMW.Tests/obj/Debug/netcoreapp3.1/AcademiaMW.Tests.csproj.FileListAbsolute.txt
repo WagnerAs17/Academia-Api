@@ -9,6 +9,7 @@ C:\AcademiaMW\tests\AcademiaMW.Tests\bin\Debug\netcoreapp3.1\AcademiaMW.Tests.ru
 C:\AcademiaMW\tests\AcademiaMW.Tests\bin\Debug\netcoreapp3.1\AcademiaMW.Tests.dll
 C:\AcademiaMW\tests\AcademiaMW.Tests\bin\Debug\netcoreapp3.1\AcademiaMW.Tests.pdb
 C:\AcademiaMW\tests\AcademiaMW.Tests\bin\Debug\netcoreapp3.1\FluentValidation.dll
+C:\AcademiaMW\tests\AcademiaMW.Tests\bin\Debug\netcoreapp3.1\MediatR.dll
 C:\AcademiaMW\tests\AcademiaMW.Tests\bin\Debug\netcoreapp3.1\Microsoft.VisualStudio.CodeCoverage.Shim.dll
 C:\AcademiaMW\tests\AcademiaMW.Tests\bin\Debug\netcoreapp3.1\Microsoft.TestPlatform.CoreUtilities.dll
 C:\AcademiaMW\tests\AcademiaMW.Tests\bin\Debug\netcoreapp3.1\Microsoft.TestPlatform.PlatformAbstractions.dll
@@ -100,4 +101,3 @@ C:\AcademiaMW\tests\AcademiaMW.Tests\obj\Debug\netcoreapp3.1\AcademiaMW.Tests.cs
 C:\AcademiaMW\tests\AcademiaMW.Tests\obj\Debug\netcoreapp3.1\AcademiaMW.Tests.dll
 C:\AcademiaMW\tests\AcademiaMW.Tests\obj\Debug\netcoreapp3.1\AcademiaMW.Tests.pdb
 C:\AcademiaMW\tests\AcademiaMW.Tests\obj\Debug\netcoreapp3.1\AcademiaMW.Tests.genruntimeconfig.cache
-C:\AcademiaMW\tests\AcademiaMW.Tests\bin\Debug\netcoreapp3.1\MediatR.dll

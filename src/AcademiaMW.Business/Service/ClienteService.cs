@@ -33,9 +33,9 @@ namespace AcademiaMW.Business.Service
                 return false;
             }
 
-            if(await ClienteRegistrado(cliente))
+            if(await ClienteMatriculado(cliente))
             {
-                Notificar("Cliente já registrado");
+                Notificar("Cliente já matriculado !");
                 return false;
             }
 
@@ -43,9 +43,7 @@ namespace AcademiaMW.Business.Service
 
             cliente.Usuario.AdicionarHashSenha(hash);
 
-            await _clienteRepository.Adicionar(cliente);
-
-            return true;
+            return await _clienteRepository.Adicionar(cliente);
         }
 
         public async Task<Cliente> ObterCliente(Guid id)
@@ -53,7 +51,7 @@ namespace AcademiaMW.Business.Service
             return await _clienteRepository.ObterClientePorId(id);
         }
 
-        private Task<bool> ClienteRegistrado(Cliente cliente)
+        private Task<bool> ClienteMatriculado(Cliente cliente)
         {
             return _clienteRepository.Existe(c =>
                 c.Email.Endereco.Equals(cliente.Email.Endereco)

@@ -36,11 +36,11 @@ namespace AcademiaMW.Infra.Data
             return await PaginatedList<Cliente>.CreateAsync(_query, pagination.PageIndex, pagination.PageSize);
         }
 
-        public async Task Adicionar(Cliente cliente)
+        public async Task<bool> Adicionar(Cliente cliente)
         {
             await _context.Clientes.AddAsync(cliente);
 
-            await _context.SaveChangesAsync();
+            return await _context.SaveChangesAsync() > 0;
         }
 
         public async Task<bool> Existe(Expression<Func<Cliente, bool>> expression)

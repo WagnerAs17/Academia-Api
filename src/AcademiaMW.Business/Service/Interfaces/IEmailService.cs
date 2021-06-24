@@ -2,7 +2,7 @@
 
 namespace AcademiaMW.Business.Service.Interfaces
 {
-    public interface IEmailService
+    public interface IEmailService : IService
     {
         Task EnviarEmail(string subject, string message, string email);
     }
