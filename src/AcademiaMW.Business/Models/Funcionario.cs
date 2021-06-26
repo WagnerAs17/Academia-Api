@@ -14,11 +14,11 @@ namespace AcademiaMW.Business.Models
         public bool Ativo { get; set; }
         public DateTime DataNascimento { get; set; }
 
-        public Funcionario(string nome, Email email, CPF cpf, Guid cargoId, DateTime dataNascimento)
+        public Funcionario(string nome, string email, string cpf, Guid cargoId, DateTime dataNascimento)
         {
             Nome = nome;
-            Email = email;
-            CPF = cpf;
+            Email = new Email(email);
+            CPF = new CPF(cpf);
             CargoId = cargoId;
             DataNascimento = dataNascimento;
             Ativo = false;

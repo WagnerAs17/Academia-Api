@@ -33,7 +33,7 @@ namespace AcademiaMW.Business.Models
 
         public bool ContratoValido()
         {
-            return DataVencimento <= DateTime.Today;
+            return DateTime.Today <= DataVencimento && Ativo;
         }
 
         public void EncerrarContrato()
