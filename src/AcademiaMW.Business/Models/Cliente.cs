@@ -16,7 +16,6 @@ namespace AcademiaMW.Business.Models
         public DateTime DataNascimento { get; private set; }
         public Endereco Endereco { get; private set; }
         
-
         //EF
         public Usuario Usuario { get; set; }
         public Guid UserId { get; set; }
@@ -66,12 +65,10 @@ namespace AcademiaMW.Business.Models
                 decimal percentual,string nome, DateTime dataNascimento, 
                 string cpf, string email)
             {
-                return new Cliente(new Usuario(senha), 
+                return new Cliente(
+                    new Usuario(senha), 
                     new Contrato(planoId, tempoContrato, percentual), 
-                    nome, dataNascimento, cpf, email)
-                {
-
-                };
+                    nome, dataNascimento, cpf, email);
             }
         }
     }
