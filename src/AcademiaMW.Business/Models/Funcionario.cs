@@ -14,6 +14,7 @@ namespace AcademiaMW.Business.Models
         public bool Ativo { get; private set; }
         public DateTime DataNascimento { get; private set; }
         public Usuario Usuario { get; set; }
+        public Guid UsuarioId { get; set; }
 
         public Funcionario
         (
