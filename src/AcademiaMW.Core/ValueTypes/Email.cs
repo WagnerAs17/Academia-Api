@@ -10,6 +10,9 @@ namespace AcademiaMW.Core.ValueTypes
 
         public Email(string endereco)
         {
+            if (!Validar(endereco))
+                throw new DomainException("E-mail informado inválido");
+
             Endereco = endereco;
         }
 
