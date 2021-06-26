@@ -5,6 +5,6 @@ namespace AcademiaMW.Business.Service.Interfaces
 {
     public interface IFuncionarioService : IService
     {
-        Task<bool> Matricular(Funcionario funcionario);
+        Task<bool> Contratar(Funcionario funcionario);
     }
 }

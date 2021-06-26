@@ -7,4 +7,7 @@
 		<PackageReference Include="FluentValidation" Version="9.3.0" />
 		<PackageReference Include="MediatR" Version="8.0.1" />
 	</ItemGroup>
+	<ItemGroup>
+	  <Folder Include="Security\" />
+	</ItemGroup>
 </Project>

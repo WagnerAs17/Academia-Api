@@ -19,7 +19,7 @@ namespace AcademiaMW.Business.Service
             _funcionarioRepository = funcionarioRepository;
         }
 
-        public async Task<bool> Matricular(Funcionario funcionario)
+        public async Task<bool> Contratar(Funcionario funcionario)
         {
             if (!funcionario.EhValido())
             {
