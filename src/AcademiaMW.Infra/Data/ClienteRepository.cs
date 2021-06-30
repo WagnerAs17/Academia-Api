@@ -20,6 +20,7 @@ namespace AcademiaMW.Infra.Data
             _query = _context.Clientes
                  .AsNoTracking()
                  .Include(x => x.Contrato)
+                 .ThenInclude(x => x.PlanoDesconto)
                  .ThenInclude(x => x.Plano).AsQueryable();
         }
        
@@ -57,8 +58,8 @@ namespace AcademiaMW.Infra.Data
                 _query = _query.Where(x => x.Nome.ToLower().Contains(search)
                     || x.Email.Endereco.ToLower().Contains(search)
                     || x.CPF.Numero.ToLower().Contains(search)
-                    || x.Contrato.Plano.Nome.ToLower().Contains(search)
-                    || x.Contrato.Plano.Valor.ToString().Contains(search));
+                    || x.Contrato.PlanoDesconto.Plano.Nome.ToLower().Contains(search)
+                    || x.Contrato.PlanoDesconto.Plano.Valor.ToString().Contains(search));
             }
         }
     }

@@ -3,7 +3,6 @@ using AcademiaMW.Business.Validations;
 using FluentValidation.Results;
 using System;
 using AcademiaMW.Core.Domain;
-using AcademiaMW.Business.Enum;
 
 namespace AcademiaMW.Business.Models
 {
@@ -61,7 +60,7 @@ namespace AcademiaMW.Business.Models
         public static class ClienteFactory
         {
             public static Cliente CriarClienteComContrato(
-                string senha, Guid planoId, TempoContrato tempoContrato, 
+                string senha, Guid planoId, int tempoContrato, 
                 decimal percentual,string nome, DateTime dataNascimento, 
                 string cpf, string email)
             {

@@ -16,7 +16,7 @@ namespace AcademiaMW.Business.Models
 
         //EF
         protected Plano() { }
-        public ICollection<Contrato> Contratos { get; set; }
+        public ICollection<PlanoDesconto> PlanoDescontos { get; set; }
 
         public Plano(string nome, decimal valor)
         {

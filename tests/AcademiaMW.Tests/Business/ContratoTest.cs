@@ -12,22 +12,10 @@ namespace AcademiaMW.Tests.Business
         public void AdicionarContrato_NovoContrato_ComSucesso()
         {
             //arrange & act
-            var contrato = new Contrato(Guid.NewGuid(), TempoContrato.SeisMeses, 10);
+            var contrato = new Contrato(Guid.NewGuid(), (int)TempoContrato.SeisMeses, 10);
 
             //assert
             Assert.True(contrato.Ativo);
-        }
-
-        [Fact(DisplayName = "Adicionar novo contrato com tempo inválido")]
-        [Trait("Categoria", "Contrato test")]
-        public void AdicionarContrato_NovoContrato_ContratoInvalido()
-        {
-            //arrange & act
-            var tempoContrato = (TempoContrato)10;
-            var contrato = new Contrato(Guid.NewGuid(),  tempoContrato , 10);
-
-            //assert
-            Assert.False(contrato.TempoDeContratoValido());
         }
 
         [Fact(DisplayName = "Contrato encerrado")]
@@ -35,7 +23,7 @@ namespace AcademiaMW.Tests.Business
         public void AdicionarContrato_ContratoCadastrado_ContratoEncerrado()
         {
             //arrange
-            var contrato = new Contrato(Guid.NewGuid(), TempoContrato.SeisMeses, 10);
+            var contrato = new Contrato(Guid.NewGuid(), (int)TempoContrato.SeisMeses, 10);
 
             //act
             contrato.EncerrarContrato();

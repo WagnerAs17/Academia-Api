@@ -15,7 +15,7 @@ namespace AcademiaMW.Tests.Business
         {
             //arrange & act
             var cliente = Cliente.ClienteFactory.CriarClienteComContrato("minhaSenha", Guid.NewGuid(), 
-                TempoContrato.SeisMeses, 5,"Wagber" ,new DateTime(2000, 02, 17), "92578850038", "wagner@gmail.com");
+                (int)TempoContrato.SeisMeses, 5,"Wagber" ,new DateTime(2000, 02, 17), "92578850038", "wagner@gmail.com");
 
             //assert
             Assert.True(cliente.EhValido());
@@ -27,7 +27,7 @@ namespace AcademiaMW.Tests.Business
         {
             //arrange & act
             var cliente = Cliente.ClienteFactory.CriarClienteComContrato("minhaSenha", Guid.NewGuid(),
-                TempoContrato.SeisMeses, 5, "Wagner", new DateTime(2020, 02, 17), "92578850038", "wagner@gmail.com");
+                (int)TempoContrato.SeisMeses, 5, "Wagner", new DateTime(2020, 02, 17), "92578850038", "wagner@gmail.com");
 
             //assert
             Assert.False(cliente.EhValido());
@@ -44,7 +44,7 @@ namespace AcademiaMW.Tests.Business
                 Cliente.ClienteFactory
                     .CriarClienteComContrato("minhaSenha", 
                         Guid.NewGuid(),
-                        TempoContrato.SeisMeses, 5, 
+                        (int)TempoContrato.SeisMeses, 5, 
                         "Wagner", 
                         new DateTime(2020, 02, 17), 
                         string.Empty, "wagner@gmail.com");
@@ -64,7 +64,7 @@ namespace AcademiaMW.Tests.Business
                 Cliente.ClienteFactory
                     .CriarClienteComContrato("minhaSenha",
                         Guid.NewGuid(),
-                        TempoContrato.SeisMeses, 5,
+                        (int)TempoContrato.SeisMeses, 5,
                         "Wagner",
                         new DateTime(2020, 02, 17),
                         "92578850038", string.Empty);

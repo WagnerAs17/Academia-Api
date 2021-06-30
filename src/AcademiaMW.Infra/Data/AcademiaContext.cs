@@ -17,6 +17,7 @@ namespace AcademiaMW.Infra.Data
         public DbSet<Contrato> Contratos { get; set; }
         public DbSet<Plano> Planos { get; set; }
         public DbSet<Funcionario> Funcionarios { get; set; }
+        public DbSet<PlanoDesconto> PlanoDescontos { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Ignore<ValidationResult>();

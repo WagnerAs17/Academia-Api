@@ -1,5 +1,4 @@
-﻿using AcademiaMW.Business.Enum;
-using AcademiaMW.Business.Models;
+﻿using AcademiaMW.Business.Models;
 using AcademiaMW.Dtos;
 using System;
 using System.Collections.Generic;
@@ -13,7 +12,7 @@ namespace AcademiaMW.Mapper
             return Cliente.ClienteFactory
                 .CriarClienteComContrato(
                     clienteDto.Senha, Guid.Parse(clienteDto.PlanoId),
-                    (TempoContrato)clienteDto.TempoContrato, clienteDto.Percentual,
+                    clienteDto.TempoContrato, clienteDto.Percentual,
                     clienteDto.Nome, clienteDto.DataNascimento,
                     clienteDto.Cpf, clienteDto.Email);
         }
@@ -25,7 +24,7 @@ namespace AcademiaMW.Mapper
                 Id = cliente.Id,
                 Nome = cliente.Nome,
                 Email = cliente.Email.Endereco,
-                Plano = cliente.Contrato.Plano.Nome,
+                Plano = cliente.Contrato.PlanoDesconto.Plano.Nome,
                 Valor = cliente.Contrato.CalcularValorPlano(),
                 VencimentoContrato = cliente.Contrato.DataVencimento
             };

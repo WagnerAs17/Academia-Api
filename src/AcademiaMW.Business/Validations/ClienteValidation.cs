@@ -16,10 +16,6 @@ namespace AcademiaMW.Business.Validations
                 .NotEqual(true)
                 .WithMessage("O Cliente deve ter mais de 13 anos");
 
-            RuleFor(x => x.Contrato.TempoDeContratoValido())
-                .Equal(true)
-                .WithMessage("O tempo de contrato é de três, seis e doze meses.");
-
             RuleFor(x => x.CPF.Numero)
                 .Must(CPF.Validar)
                 .WithMessage("CPF informado inválido.");

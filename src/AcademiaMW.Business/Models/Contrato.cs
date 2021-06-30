@@ -8,27 +8,26 @@ namespace AcademiaMW.Business.Models
     {
         public DateTime DataAquisicao { get; private set; }
         public DateTime DataVencimento { get; private set; }
-        public TempoContrato TempoContrato { get; set; }
         public decimal Percentual { get; private set; }
         public bool Ativo { get; private set; }
 
         //EF 
-        public Plano Plano { get; set; }
-        public Guid PlanoId { get; set; }
+        public PlanoDesconto PlanoDesconto { get; set; }
+        public Guid PlanoDescontoId { get; set; }
+        protected Contrato() { }
 
-        public Contrato(Guid planoId, TempoContrato tempoContrato, decimal percentual)
+        public Contrato(Guid planoDescontoId, int tempoContrato, decimal percentual)
         {
-            PlanoId = planoId;
+            PlanoDescontoId = planoDescontoId;
             Percentual = percentual;
-            TempoContrato = tempoContrato;
             DataAquisicao = DateTime.Today;
-            DataVencimento = DateTime.Today.AddMonths((int)tempoContrato);
+            DataVencimento = DateTime.Today.AddMonths(tempoContrato);
             Ativo = true;
         }
 
         public decimal CalcularValorPlano()
         {
-            return Plano.Valor - (Plano.Valor * Percentual / 100);
+            return PlanoDesconto.Plano.Valor - (PlanoDesconto.Plano.Valor * PlanoDesconto.Percentual / 100);
         }
 
         public bool ContratoValido()
@@ -39,13 +38,6 @@ namespace AcademiaMW.Business.Models
         public void EncerrarContrato()
         {
             Ativo = false;
-        }
-
-        public bool TempoDeContratoValido()
-        {
-            return TempoContrato == TempoContrato.TresMeses ||
-                TempoContrato == TempoContrato.SeisMeses ||
-                TempoContrato == TempoContrato.UmAno;
         }
 
     }

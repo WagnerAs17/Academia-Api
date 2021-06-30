@@ -13,7 +13,7 @@ namespace AcademiaMW.Infra.Data.Mappings
                 .HasColumnType("varchar(300)")
                 .IsRequired();
 
-            builder.HasMany(x => x.Contratos)
+            builder.HasMany(x => x.PlanoDescontos)
                 .WithOne(x => x.Plano)
                 .HasForeignKey(x => x.PlanoId);
 
