@@ -1,5 +1,4 @@
-﻿using AcademiaMW.Business.Enum;
-using AcademiaMW.Core.Domain;
+﻿using AcademiaMW.Core.Domain;
 using System;
 
 namespace AcademiaMW.Business.Models
@@ -8,7 +7,6 @@ namespace AcademiaMW.Business.Models
     {
         public DateTime DataAquisicao { get; private set; }
         public DateTime DataVencimento { get; private set; }
-        public decimal Percentual { get; private set; }
         public bool Ativo { get; private set; }
 
         //EF 
@@ -16,14 +14,14 @@ namespace AcademiaMW.Business.Models
         public Guid PlanoDescontoId { get; set; }
         protected Contrato() { }
 
-        public Contrato(Guid planoDescontoId, int tempoContrato, decimal percentual)
+        public Contrato(PlanoDesconto desconto)
         {
-            PlanoDescontoId = planoDescontoId;
-            Percentual = percentual;
+            PlanoDescontoId = desconto.Id;
             DataAquisicao = DateTime.Today;
-            DataVencimento = DateTime.Today.AddMonths(tempoContrato);
+            DataVencimento = DateTime.Today.AddMonths(desconto.QuantidadeMeses);
             Ativo = true;
         }
+
 
         public decimal CalcularValorPlano()
         {

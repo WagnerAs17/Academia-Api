@@ -7,7 +7,7 @@ namespace AcademiaMW.Business.Service
 {
     public interface IClienteService : IService
     {
-        Task<bool> Matricular(Cliente cliente);
+        Task<bool> Matricular(Cliente cliente, Guid planoId);
         Task<Cliente> ObterCliente(Guid id);
     }
 }

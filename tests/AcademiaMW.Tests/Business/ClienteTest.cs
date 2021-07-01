@@ -14,8 +14,8 @@ namespace AcademiaMW.Tests.Business
         public void AdicionarNovoCliente_NovoCliente_ComContrato()
         {
             //arrange & act
-            var cliente = Cliente.ClienteFactory.CriarClienteComContrato("minhaSenha", Guid.NewGuid(), 
-                (int)TempoContrato.SeisMeses, 5,"Wagber" ,new DateTime(2000, 02, 17), "92578850038", "wagner@gmail.com");
+            var cliente = Cliente.ClienteFactory.CriarClienteComContrato("minhaSenha" 
+                ,"Wagber" ,new DateTime(2000, 02, 17), "92578850038", "wagner@gmail.com");
 
             //assert
             Assert.True(cliente.EhValido());
@@ -26,8 +26,8 @@ namespace AcademiaMW.Tests.Business
         public void AdicionarNovoCliente_NovoCliente_MenorDeIdade()
         {
             //arrange & act
-            var cliente = Cliente.ClienteFactory.CriarClienteComContrato("minhaSenha", Guid.NewGuid(),
-                (int)TempoContrato.SeisMeses, 5, "Wagner", new DateTime(2020, 02, 17), "92578850038", "wagner@gmail.com");
+            var cliente = Cliente.ClienteFactory.CriarClienteComContrato("minhaSenha",
+                 "Wagner", new DateTime(2020, 02, 17), "92578850038", "wagner@gmail.com");
 
             //assert
             Assert.False(cliente.EhValido());
@@ -43,8 +43,6 @@ namespace AcademiaMW.Tests.Business
             var exception = Assert.Throws<DomainException>(() => {
                 Cliente.ClienteFactory
                     .CriarClienteComContrato("minhaSenha", 
-                        Guid.NewGuid(),
-                        (int)TempoContrato.SeisMeses, 5, 
                         "Wagner", 
                         new DateTime(2020, 02, 17), 
                         string.Empty, "wagner@gmail.com");
@@ -63,8 +61,6 @@ namespace AcademiaMW.Tests.Business
             var exception = Assert.Throws<DomainException>(() => {
                 Cliente.ClienteFactory
                     .CriarClienteComContrato("minhaSenha",
-                        Guid.NewGuid(),
-                        (int)TempoContrato.SeisMeses, 5,
                         "Wagner",
                         new DateTime(2020, 02, 17),
                         "92578850038", string.Empty);
@@ -73,11 +69,6 @@ namespace AcademiaMW.Tests.Business
             //assert
             Assert.IsType<DomainException>(exception);
             Assert.Equal("E-mail informado inválido", exception.Message);
-        }
-
-        public Endereco CriarEndereco()
-        {
-            return new Endereco("Violetea", "200", "Jardim Odete", "08598140", "Itaquaquecetuba", "SP");
         }
     }
 }

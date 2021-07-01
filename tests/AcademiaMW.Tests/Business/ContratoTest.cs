@@ -11,8 +11,11 @@ namespace AcademiaMW.Tests.Business
         [Trait("Categoria", "Contrato test")]
         public void AdicionarContrato_NovoContrato_ComSucesso()
         {
-            //arrange & act
-            var contrato = new Contrato(Guid.NewGuid(), (int)TempoContrato.SeisMeses, 10);
+            //arrange
+            var planoDesconto = new PlanoDesconto(Guid.NewGuid(), 2);
+
+            //act
+            var contrato = new Contrato(planoDesconto);
 
             //assert
             Assert.True(contrato.Ativo);
@@ -23,7 +26,8 @@ namespace AcademiaMW.Tests.Business
         public void AdicionarContrato_ContratoCadastrado_ContratoEncerrado()
         {
             //arrange
-            var contrato = new Contrato(Guid.NewGuid(), (int)TempoContrato.SeisMeses, 10);
+            var planoDesconto = new PlanoDesconto(Guid.NewGuid(), 2);
+            var contrato = new Contrato(planoDesconto);
 
             //act
             contrato.EncerrarContrato();

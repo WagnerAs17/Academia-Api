@@ -25,7 +25,6 @@ namespace AcademiaMW.Business.Models
         public Cliente
         (
             Usuario usuario,
-            Contrato contrato,
             string nome, 
             DateTime dataNascimento, 
             string cpf, 
@@ -33,7 +32,6 @@ namespace AcademiaMW.Business.Models
         )
         {
             Usuario = usuario;
-            Contrato = contrato;
             Nome = nome;
             DataNascimento = dataNascimento;
             CPF = new CPF(cpf);
@@ -52,6 +50,11 @@ namespace AcademiaMW.Business.Models
             return ValidationResult.IsValid;
         }
 
+        public void AdicionarContrato(Contrato contrato)
+        {
+            Contrato = contrato;
+        }
+
         public void AdicionarEndereco(Endereco endereco)
         {
             Endereco = endereco;
@@ -60,13 +63,11 @@ namespace AcademiaMW.Business.Models
         public static class ClienteFactory
         {
             public static Cliente CriarClienteComContrato(
-                string senha, Guid planoId, int tempoContrato, 
-                decimal percentual,string nome, DateTime dataNascimento, 
+                string senha, string nome, DateTime dataNascimento, 
                 string cpf, string email)
             {
                 return new Cliente(
                     new Usuario(senha), 
-                    new Contrato(planoId, tempoContrato, percentual), 
                     nome, dataNascimento, cpf, email);
             }
         }

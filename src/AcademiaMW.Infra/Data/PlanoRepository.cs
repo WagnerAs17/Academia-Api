@@ -1,6 +1,9 @@
 ﻿using AcademiaMW.Business.Models;
 using AcademiaMW.Business.Models.Repository;
 using AcademiaMW.Core.Domain;
+using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -24,6 +27,24 @@ namespace AcademiaMW.Infra.Data
             await _context.SaveChangesAsync();
         }
 
+        public async Task AdicionarDesconto(PlanoDesconto desconto)
+        {
+            await _context.PlanoDescontos.AddAsync(desconto);
+        }
+
+        public async Task<IEnumerable<PlanoDesconto>> ObterDescontoAtivos(Guid planoId)
+        {
+            return await _context.PlanoDescontos
+                .Where(x => x.PlanoId == planoId && x.Ativo)
+                .ToListAsync();
+        }
+
+        public async Task<PlanoDesconto> ObterDescontoPlano(Guid planoId)
+        {
+            return await _context.PlanoDescontos
+                .FirstOrDefaultAsync(x => x.PlanoId == planoId);
+        }
+
         public async Task<Paginated<Plano>> ObterPlanos(Pagination pagination)
         {
             AplicarFiltro(pagination.Search);
@@ -35,6 +56,11 @@ namespace AcademiaMW.Infra.Data
         {
             if (!string.IsNullOrEmpty(seach))
                 _query = _query.Where(p => p.Nome.ToLower().Contains(seach.ToLower()));
+        }
+
+        public async Task Commit()
+        {
+            await _context.SaveChangesAsync();
         }
     }
 }

@@ -37,5 +37,20 @@ namespace AcademiaMW.Business.Service
         {
             return await _planoRepository.ObterPlanos(pagination);
         }
+
+        public async Task AdicionarDescontoPlano(PlanoDesconto planoDesconto)
+        {
+            var descontosAtivos = await _planoRepository
+                .ObterDescontoAtivos(planoDesconto.PlanoId);
+            
+            foreach (var desconto in descontosAtivos)
+            {
+                desconto.Ativo = false;
+            }
+
+            await _planoRepository.AdicionarDesconto(planoDesconto);
+
+            await _planoRepository.Commit();
+        }
     }
 }

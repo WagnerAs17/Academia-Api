@@ -11,24 +11,26 @@ namespace AcademiaMW.Business.Service
     {
         private readonly IClienteRepository _clienteRepository;
         private readonly IBCryptPasswordHasher _passwordHash;
+        private readonly IPlanoRepository _planoRepository;
 
         public ClienteService
         (
             INotificador notificador,
             IClienteRepository clienteRepository,
-            IBCryptPasswordHasher passwordHash
+            IBCryptPasswordHasher passwordHash,
+            IPlanoRepository planoRepository
         ): base(notificador)
         {
             _clienteRepository = clienteRepository;
             _passwordHash = passwordHash;
+            _planoRepository = planoRepository;
         }
 
-        public async Task<bool> Matricular(Cliente cliente)
+        public async Task<bool> Matricular(Cliente cliente, Guid planoId)
         {
             if (!cliente.EhValido())
             {
                 Notificar(cliente.ValidationResult);
-                Notificar(cliente.Contrato.ValidationResult);
 
                 return false;
             }
@@ -38,6 +40,10 @@ namespace AcademiaMW.Business.Service
                 Notificar("Cliente já matriculado !");
                 return false;
             }
+
+            var planoDesconto = await _planoRepository.ObterDescontoPlano(planoId);
+
+            cliente.AdicionarContrato(new Contrato(planoDesconto));
 
             var hash = _passwordHash.GetHashPassword(cliente.Usuario.Senha);
 

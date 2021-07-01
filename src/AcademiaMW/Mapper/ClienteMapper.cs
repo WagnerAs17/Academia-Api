@@ -11,9 +11,8 @@ namespace AcademiaMW.Mapper
         {
             return Cliente.ClienteFactory
                 .CriarClienteComContrato(
-                    clienteDto.Senha, Guid.Parse(clienteDto.PlanoId),
-                    clienteDto.TempoContrato, clienteDto.Percentual,
-                    clienteDto.Nome, clienteDto.DataNascimento,
+                    clienteDto.Senha, clienteDto.Nome, 
+                    clienteDto.DataNascimento,
                     clienteDto.Cpf, clienteDto.Email);
         }
 
