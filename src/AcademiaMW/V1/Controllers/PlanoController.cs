@@ -8,6 +8,7 @@ using AcademiaMW.Mapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Threading.Tasks;
 
 namespace AcademiaMW.V1.Controllers
@@ -32,7 +33,7 @@ namespace AcademiaMW.V1.Controllers
             if (!ModelState.IsValid)
                 return CustomResponse(ModelState);
 
-            await _planoService.Adicionar(new Plano(plano.Nome, plano.Valor));
+            await _planoService.Adicionar(new PlanoValor(plano.Valor, new Plano(plano.Nome)));
 
             return CustomResponse();
         }
@@ -45,6 +46,24 @@ namespace AcademiaMW.V1.Controllers
             var paginatedPlanos = await _planoService.ObterPlanosPaginados(pagination);
 
             return Ok(PlanoMapper.PaginatedPlanosParaPlanoDto(paginatedPlanos));
+        }
+
+        [HttpPost("{planoId:guid}/descontos")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status409Conflict)]
+        public async Task<IActionResult> AdicionarDesconto([FromRoute] Guid planoId, [FromBody] PlanoDescontoDto desconto)
+        {
+            if (!ModelState.IsValid)
+                return CustomResponse(ModelState);
+
+            if (planoId != desconto.PlanoId)
+                return Conflict("Plano informado inválido");
+
+            await _planoService.AdicionarDescontoPlano(desconto.PlanoId,
+                PlanoMapper.PlanoDescontoDtoParaPlanoDesconto(desconto));
+
+            return CustomResponse();
         }
     }
 }

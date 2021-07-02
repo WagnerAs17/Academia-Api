@@ -33,11 +33,5 @@ namespace AcademiaMW.Dtos
 
         [Required(ErrorMessage = "O campo {0} é obrigatório")]
         public string PlanoId { get; set; }
-
-        [Required(ErrorMessage = "O campo {0} é obrigatório")]
-        public int TempoContrato { get; set; }
-
-        [Required(ErrorMessage = "O campo {0} é obrigatório")]
-        public decimal Percentual { get; set; }
     }
 }

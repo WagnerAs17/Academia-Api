@@ -1,5 +1,4 @@
-﻿using AcademiaMW.Business.Enum;
-using AcademiaMW.Business.Models;
+﻿using AcademiaMW.Business.Models;
 using System;
 using Xunit;
 
@@ -12,7 +11,7 @@ namespace AcademiaMW.Tests.Business
         public void AdicionarContrato_NovoContrato_ComSucesso()
         {
             //arrange
-            var planoDesconto = new PlanoDesconto(Guid.NewGuid(), 2);
+            var planoDesconto = new PlanoDesconto(5, 2);
 
             //act
             var contrato = new Contrato(planoDesconto);
@@ -26,7 +25,7 @@ namespace AcademiaMW.Tests.Business
         public void AdicionarContrato_ContratoCadastrado_ContratoEncerrado()
         {
             //arrange
-            var planoDesconto = new PlanoDesconto(Guid.NewGuid(), 2);
+            var planoDesconto = new PlanoDesconto(5, 2);
             var contrato = new Contrato(planoDesconto);
 
             //act

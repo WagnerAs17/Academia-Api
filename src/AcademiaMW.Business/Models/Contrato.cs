@@ -1,5 +1,6 @@
 ﻿using AcademiaMW.Core.Domain;
 using System;
+using System.Linq;
 
 namespace AcademiaMW.Business.Models
 {
@@ -25,7 +26,9 @@ namespace AcademiaMW.Business.Models
 
         public decimal CalcularValorPlano()
         {
-            return PlanoDesconto.Plano.Valor - (PlanoDesconto.Plano.Valor * PlanoDesconto.Percentual / 100);
+            var valor = PlanoDesconto.PlanoValor.Valor;
+
+            return valor - (valor * PlanoDesconto.Percentual / 100);
         }
 
         public bool ContratoValido()

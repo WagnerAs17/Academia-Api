@@ -10,11 +10,11 @@ namespace AcademiaMW.Tests.Business
         public void AdicionarNovoPlano_NovoCliente_ComSucesso()
         {
             //arrange e act 
-            var plano = new Plano("Hercules", 100);
+            var planoValor = new PlanoValor(100, new Plano("Hercules")) ;
 
             //Assert
-            Assert.True(plano.EhValido());
-            Assert.True(plano.Ativo);
+            Assert.True(planoValor.Plano.EhValido());
+            Assert.True((bool)planoValor.Plano.Ativo);
         }
 
         [Fact(DisplayName = "Desativar o plano")]
@@ -22,13 +22,13 @@ namespace AcademiaMW.Tests.Business
         public void DesativarPlano_PlanoCadastrado_ComSucesso()
         {
             //arrange 
-            var plano = new Plano("Hercules", 100);
+            var planoValor = new PlanoValor(100, new Plano("Hercules"));
 
             //act
-            plano.DesativarPlano();
+            planoValor.Plano.DesativarPlano();
 
             //Assert
-            Assert.False(plano.Ativo);
+            Assert.False((bool)planoValor.Plano.Ativo);
         }
     }
 }

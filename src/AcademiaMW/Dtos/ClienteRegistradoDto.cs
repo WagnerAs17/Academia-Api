@@ -10,6 +10,7 @@ namespace AcademiaMW.Dtos
         public decimal Valor { get; set; }
         public DateTime VencimentoContrato { get; set; }
         public string Email { get; set; }
+        public int TempoContrato { get; set; }
 
     }
 }

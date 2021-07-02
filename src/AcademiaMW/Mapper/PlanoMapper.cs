@@ -1,6 +1,7 @@
 ﻿using AcademiaMW.Business.Models;
 using AcademiaMW.Dtos;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace AcademiaMW.Mapper
 {
@@ -24,10 +25,24 @@ namespace AcademiaMW.Mapper
 
             foreach (var plano in planos)
             {
-                listaPlanos.Add(new PlanoRegistradoDto { Id = plano.Id, Nome = plano.Nome, Valor = plano.Valor });
+                var planoDesconto = plano.PlanoValores.SelectMany(x => x.PlanoDescontos);
+
+                var valor = plano.PlanoValores.FirstOrDefault(x => x.Ativo).Valor;
+                var desconto =  planoDesconto.Any() ? planoDesconto.FirstOrDefault(x => x.Ativo).Percentual : 0;
+
+                listaPlanos.Add(new PlanoRegistradoDto 
+                { 
+                    Id = plano.Id, Nome = plano.Nome, 
+                    Valor = valor, Desconto = desconto
+                });
             }
 
             return listaPlanos;
+        }
+
+        public static PlanoDesconto PlanoDescontoDtoParaPlanoDesconto(PlanoDescontoDto desconto)
+        {
+            return new PlanoDesconto(desconto.Percentual, desconto.QuantidadeMeses);
         }
     }
 }

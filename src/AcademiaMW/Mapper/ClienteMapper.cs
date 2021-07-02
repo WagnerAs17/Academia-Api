@@ -23,9 +23,10 @@ namespace AcademiaMW.Mapper
                 Id = cliente.Id,
                 Nome = cliente.Nome,
                 Email = cliente.Email.Endereco,
-                Plano = cliente.Contrato.PlanoDesconto.Plano.Nome,
+                Plano = cliente.Contrato.PlanoDesconto.PlanoValor.Plano.Nome,
                 Valor = cliente.Contrato.CalcularValorPlano(),
-                VencimentoContrato = cliente.Contrato.DataVencimento
+                VencimentoContrato = cliente.Contrato.DataVencimento,
+                TempoContrato = cliente.Contrato.PlanoDesconto.QuantidadeMeses
             };
         }
 

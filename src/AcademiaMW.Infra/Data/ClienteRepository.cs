@@ -13,25 +13,32 @@ namespace AcademiaMW.Infra.Data
     {
         private readonly AcademiaContext _context;
         private IQueryable<Cliente> _query;
-
         public ClienteRepository(AcademiaContext context)
         {
             _context = context;
-            _query = _context.Clientes
-                 .AsNoTracking()
-                 .Include(x => x.Contrato)
-                 .ThenInclude(x => x.PlanoDesconto)
-                 .ThenInclude(x => x.Plano).AsQueryable();
+            _query = _context.Clientes.AsQueryable();
         }
        
         public async Task<Cliente> ObterClientePorId(Guid id)
         {
-            return await _query
+            return await _context.Clientes
                 .FirstOrDefaultAsync(c => c.Id == id);
+        }
+
+        private IQueryable<Cliente> Query() 
+        {
+            return _context.Clientes
+                     .AsNoTracking()
+                     .Include(x => x.Contrato)
+                     .ThenInclude(x => x.PlanoDesconto)
+                     .ThenInclude(x => x.PlanoValor)
+                     .ThenInclude(x => x.Plano).AsQueryable();
         }
 
         public async Task<Paginated<Cliente>> ObterTodos(Pagination pagination)
         {
+            _query = Query();
+
             AplicarFiltro(pagination.Search);
 
             return await PaginatedList<Cliente>.CreateAsync(_query, pagination.PageIndex, pagination.PageSize);
@@ -58,8 +65,7 @@ namespace AcademiaMW.Infra.Data
                 _query = _query.Where(x => x.Nome.ToLower().Contains(search)
                     || x.Email.Endereco.ToLower().Contains(search)
                     || x.CPF.Numero.ToLower().Contains(search)
-                    || x.Contrato.PlanoDesconto.Plano.Nome.ToLower().Contains(search)
-                    || x.Contrato.PlanoDesconto.Plano.Valor.ToString().Contains(search));
+                    || x.Contrato.PlanoDesconto.PlanoValor.Plano.Nome.ToLower().Contains(search));
             }
         }
     }

@@ -85,9 +85,6 @@ namespace AcademiaMW.Infra.Migrations
                     b.Property<DateTime>("DataVencimento")
                         .HasColumnType("datetime(6)");
 
-                    b.Property<decimal>("Percentual")
-                        .HasColumnType("decimal(65,30)");
-
                     b.Property<Guid>("PlanoDescontoId")
                         .HasColumnType("char(36)");
 
@@ -174,9 +171,6 @@ namespace AcademiaMW.Infra.Migrations
                         .IsRequired()
                         .HasColumnType("varchar(300)");
 
-                    b.Property<decimal>("Valor")
-                        .HasColumnType("decimal(65,30)");
-
                     b.HasKey("Id");
 
                     b.ToTable("Planos");
@@ -191,10 +185,13 @@ namespace AcademiaMW.Infra.Migrations
                     b.Property<bool>("Ativo")
                         .HasColumnType("tinyint(1)");
 
+                    b.Property<DateTime>("DataCriacao")
+                        .HasColumnType("datetime(6)");
+
                     b.Property<decimal>("Percentual")
                         .HasColumnType("decimal(65,30)");
 
-                    b.Property<Guid>("PlanoId")
+                    b.Property<Guid>("PlanoValorId")
                         .HasColumnType("char(36)");
 
                     b.Property<int>("QuantidadeMeses")
@@ -202,9 +199,37 @@ namespace AcademiaMW.Infra.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("PlanoId");
+                    b.HasIndex("PlanoValorId");
 
                     b.ToTable("PlanoDescontos");
+                });
+
+            modelBuilder.Entity("AcademiaMW.Business.Models.PlanoValor", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("char(36)");
+
+                    b.Property<bool>("Ativo")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<DateTime>("DataCriacao")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<DateTime?>("DataEncerramento")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<Guid>("PlanoId")
+                        .HasColumnType("char(36)");
+
+                    b.Property<decimal>("Valor")
+                        .HasColumnType("decimal(65,30)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PlanoId");
+
+                    b.ToTable("PlanoValor");
                 });
 
             modelBuilder.Entity("AcademiaMW.Business.Models.Usuario", b =>
@@ -368,8 +393,16 @@ namespace AcademiaMW.Infra.Migrations
 
             modelBuilder.Entity("AcademiaMW.Business.Models.PlanoDesconto", b =>
                 {
-                    b.HasOne("AcademiaMW.Business.Models.Plano", "Plano")
+                    b.HasOne("AcademiaMW.Business.Models.PlanoValor", "PlanoValor")
                         .WithMany("PlanoDescontos")
+                        .HasForeignKey("PlanoValorId")
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("AcademiaMW.Business.Models.PlanoValor", b =>
+                {
+                    b.HasOne("AcademiaMW.Business.Models.Plano", "Plano")
+                        .WithMany("PlanoValores")
                         .HasForeignKey("PlanoId")
                         .IsRequired();
                 });

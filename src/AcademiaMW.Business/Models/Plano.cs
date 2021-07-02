@@ -11,18 +11,16 @@ namespace AcademiaMW.Business.Models
         public string Nome { get; private set; }
         public DateTime DataCriacao { get; private set; }
         public DateTime? DataDesativacao { get; private set; }
-        public decimal Valor { get; set; }
         public bool Ativo { get; set; }
 
         //EF
         protected Plano() { }
-        public ICollection<PlanoDesconto> PlanoDescontos { get; set; }
+        public ICollection<PlanoValor> PlanoValores { get; set; }
 
-        public Plano(string nome, decimal valor)
+        public Plano(string nome)
         {
             Nome = nome;
             DataCriacao = DateTime.Now;
-            Valor = valor;
             Ativo = true;
         }
 

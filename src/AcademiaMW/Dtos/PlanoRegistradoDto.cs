@@ -6,6 +6,7 @@ namespace AcademiaMW.Dtos
     {
         public string Nome { get; set; }
         public decimal Valor { get; set; }
+        public decimal Desconto { get; set; }
         public Guid Id { get; set; }
     }
 }

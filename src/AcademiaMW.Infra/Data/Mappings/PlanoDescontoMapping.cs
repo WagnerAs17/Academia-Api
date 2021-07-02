@@ -10,7 +10,7 @@ namespace AcademiaMW.Infra.Data.Mappings
         {
             builder.HasKey(x => x.Id);
 
-            builder.HasOne(x => x.Plano)
+            builder.HasOne(x => x.PlanoValor)
                 .WithMany(x => x.PlanoDescontos);
 
             builder.ToTable("PlanoDescontos");

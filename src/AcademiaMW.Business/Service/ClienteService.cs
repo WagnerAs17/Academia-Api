@@ -43,6 +43,12 @@ namespace AcademiaMW.Business.Service
 
             var planoDesconto = await _planoRepository.ObterDescontoPlano(planoId);
 
+            if (planoDesconto == null)
+            {
+                Notificar("Plano sem desconto associado");
+                return false;
+            }
+
             cliente.AdicionarContrato(new Contrato(planoDesconto));
 
             var hash = _passwordHash.GetHashPassword(cliente.Usuario.Senha);
