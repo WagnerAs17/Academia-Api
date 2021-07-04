@@ -1,6 +1,7 @@
 ﻿using AcademiaMW.Business.Models;
 using AcademiaMW.Business.Models.Repository;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
@@ -21,6 +22,11 @@ namespace AcademiaMW.Infra.Data
                 .FirstOrDefaultAsync(x => x.Email.Endereco == email);
         }
 
+        public async Task<UsuarioConfirmacao> ObterConfirmacaoUsuario(Guid usuarioId)
+        {
+            return await _context.UsuarioConfirmacao.FirstOrDefaultAsync(x => x.UsuarioId == usuarioId && x.Ativo);
+        }
+
         public async Task AdicionarAsync(Usuario usuario)
         {
             await _context.Usuarios.AddAsync(usuario);
@@ -37,6 +43,12 @@ namespace AcademiaMW.Infra.Data
         {
             _context.Usuarios.Update(usuario);
         }
+
+        public void AtualizarConfirmacaoUsuario(UsuarioConfirmacao usuarioConfirmacao)
+        {
+            _context.UsuarioConfirmacao.Update(usuarioConfirmacao);
+        }
+
         public void RemoverUsuario(Usuario usuario)
         {
             _context.Usuarios.Remove(usuario);
@@ -50,6 +62,11 @@ namespace AcademiaMW.Infra.Data
         public async Task<IEnumerable<Usuario>> ObterTodos()
         {
             return await _context.Usuarios.ToListAsync();
+        }
+
+        public async Task<Usuario> ObterUsuarioPorId(Guid id)
+        {
+            return await _context.Usuarios.FirstOrDefaultAsync(x => x.Id == id);
         }
     }
 }

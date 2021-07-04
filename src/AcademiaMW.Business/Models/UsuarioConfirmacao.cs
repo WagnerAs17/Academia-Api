@@ -17,7 +17,7 @@ namespace AcademiaMW.Business.Models
             UsuarioId = usuarioId;
             GerarCodigo();
             DateInicial = DateTime.Now;
-            DateExpiracao = DateInicial.AddMinutes(10);
+            DateExpiracao = DateInicial.AddMinutes(5);
             Ativo = true;
         }
         
@@ -33,13 +33,10 @@ namespace AcademiaMW.Business.Models
 
         public bool CodigoValido()
         {
-            if (DateTime.Now > DateExpiracao)
-                DesativarConfirmacao();
-
-            return Ativo;
+            return DateTime.Now > DateExpiracao;
         }
 
-        public void DesativarConfirmacao()
+        public void DesativarCodigoConfirmacao()
         {
             Ativo = false;
         }

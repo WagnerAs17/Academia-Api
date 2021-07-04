@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace AcademiaMW.Business.Models.Repository
@@ -11,5 +12,9 @@ namespace AcademiaMW.Business.Models.Repository
         void AtualizarUsuario(Usuario usuario);
         Task<IEnumerable<Usuario>> ObterTodos();
         Task<bool> AdicionarConfirmacaoUsuario(UsuarioConfirmacao usuarioConfirmacao);
+        Task<UsuarioConfirmacao> ObterConfirmacaoUsuario(Guid usuarioId);
+        void AtualizarConfirmacaoUsuario(UsuarioConfirmacao usuarioConfirmacao);
+        Task<Usuario> ObterUsuarioPorId(Guid id);
+        Task<bool> Commit();
     }
 }

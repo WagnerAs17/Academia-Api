@@ -44,9 +44,9 @@ namespace AcademiaMW.V1.Controllers
 
             var cliente = ClienteMapper.ClienteDtoParaCliente(novoCliente);
 
-            await _clienteService.Matricular(cliente, Guid.Parse(novoCliente.PlanoId));
+            await _clienteService.Matricular(cliente, novoCliente.PlanoId);
 
-            return CustomResponse();
+            return CustomResponse(new { Id = cliente.Usuario.Id });
         }
 
         [HttpGet("{id:guid}")]

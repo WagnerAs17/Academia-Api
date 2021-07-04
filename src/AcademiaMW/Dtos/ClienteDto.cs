@@ -32,6 +32,6 @@ namespace AcademiaMW.Dtos
         public string Imagem { get; set; }
 
         [Required(ErrorMessage = "O campo {0} é obrigatório")]
-        public string PlanoId { get; set; }
+        public Guid PlanoId { get; set; }
     }
 }

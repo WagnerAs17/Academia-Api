@@ -45,6 +45,19 @@ namespace AcademiaMW.V1.Controllers
             return CustomResponse(_authService.ObterResponseToken(cliente));
         }
 
+        [HttpPost("confirmar")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<IActionResult> ConfirmarConta([FromBody] UsuarioConfirmacaoDto usuarioConfirmacao)
+        {
+            if (!ModelState.IsValid)
+                return CustomResponse(ModelState);
+
+            await _usuarioService.ConfirmarConta(usuarioConfirmacao.Id, usuarioConfirmacao.Codigo);
+
+            return CustomResponse();
+        }
+
 
     }
 }
