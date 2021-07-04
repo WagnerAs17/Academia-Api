@@ -1,11 +1,15 @@
-﻿using AcademiaMW.Business.Models.Repository;
+﻿using AcademiaMW.Business.Events;
+using AcademiaMW.Business.Models.Repository;
 using AcademiaMW.Business.Notifications;
 using AcademiaMW.Business.Security;
 using AcademiaMW.Business.Service.Interfaces;
+using AcademiaMW.Core.Communication.Mediator;
 using AcademiaMW.Extensions;
 using AcademiaMW.Infra.Data;
+using AcademiaMW.Infra.Email;
 using AcademiaMW.Infra.Security;
 using AcademiaMW.Services;
+using MediatR;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Linq;
@@ -31,6 +35,11 @@ namespace AcademiaMW.Configuration
             services.AddScoped<IBCryptPasswordHasher, BcryptPasswordHasher>();
             services.AddScoped<IUsuarioRepository, UsuarioRepository>();
             services.AddScoped<IFuncionarioRepository, FuncionarioRepository>();
+
+            services.AddMediatR(typeof(Startup));
+            services.AddScoped<IMediatorHandler, MediatorHandler>();
+            services.AddScoped<INotificationHandler<CodigoConfirmacaoEvent>, UsuarioEvent>();
+            services.AddScoped<IEmailService, EmailService>();
         }
 
         private static void RegistrarInterfaces(this IServiceCollection services, Type typeBase, string assemblyNamespace)

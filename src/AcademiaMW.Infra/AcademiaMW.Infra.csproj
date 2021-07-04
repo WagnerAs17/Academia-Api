@@ -16,5 +16,6 @@
 	</ItemGroup>
 	<ItemGroup>
 	  <ProjectReference Include="..\AcademiaMW.Business\AcademiaMW.Business.csproj" />
+	  <ProjectReference Include="..\AcademiaMW.Core\AcademiaMW.Core.csproj" />
 	</ItemGroup>
 </Project>

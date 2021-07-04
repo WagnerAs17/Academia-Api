@@ -10,5 +10,6 @@ namespace AcademiaMW.Business.Models.Repository
         void RemoverUsuario(Usuario usuario);
         void AtualizarUsuario(Usuario usuario);
         Task<IEnumerable<Usuario>> ObterTodos();
+        Task<bool> AdicionarConfirmacaoUsuario(UsuarioConfirmacao usuarioConfirmacao);
     }
 }

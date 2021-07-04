@@ -161,6 +161,9 @@
             "projectReferences": {
               "C:\\AcademiaMW\\src\\AcademiaMW.Business\\AcademiaMW.Business.csproj": {
                 "projectPath": "C:\\AcademiaMW\\src\\AcademiaMW.Business\\AcademiaMW.Business.csproj"
+              },
+              "C:\\AcademiaMW\\src\\AcademiaMW.Core\\AcademiaMW.Core.csproj": {
+                "projectPath": "C:\\AcademiaMW\\src\\AcademiaMW.Core\\AcademiaMW.Core.csproj"
               }
             }
           }

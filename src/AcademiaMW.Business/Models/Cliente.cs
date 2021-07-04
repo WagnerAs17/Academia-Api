@@ -11,7 +11,7 @@ namespace AcademiaMW.Business.Models
         public string Nome { get; private set; }
         public string Imagem { get; set; }
         public CPF CPF { get; private set; }
-        public Email Email { get; set; }
+        public Core.ValueTypes.Email Email { get; set; }
         public DateTime DataNascimento { get; private set; }
         public Endereco Endereco { get; private set; }
         
@@ -35,7 +35,7 @@ namespace AcademiaMW.Business.Models
             Nome = nome;
             DataNascimento = dataNascimento;
             CPF = new CPF(cpf);
-            Email = new Email(email);
+            Email = new Core.ValueTypes.Email(email);
         }
 
         public bool EhMenorDeTrezeAnos()

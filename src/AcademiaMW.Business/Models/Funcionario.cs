@@ -8,7 +8,7 @@ namespace AcademiaMW.Business.Models
     public class Funcionario : Entity, IAggregateRoot
     {
         public string Nome { get; private set; }
-        public Email Email { get; private set; }
+        public Core.ValueTypes.Email Email { get; private set; }
         public CPF CPF { get; private set; }
         public string Imagem { get; private set; }
         public bool Ativo { get; private set; }
@@ -23,7 +23,7 @@ namespace AcademiaMW.Business.Models
         )
         {
             Nome = nome;
-            Email = new Email(email);
+            Email = new Core.ValueTypes.Email(email);
             CPF = new CPF(cpf);
             CargoId = cargoId;
             DataNascimento = dataNascimento;

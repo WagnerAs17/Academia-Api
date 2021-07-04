@@ -161,6 +161,9 @@
             "projectReferences": {
               "C:\\AcademiaMW\\src\\AcademiaMW.Business\\AcademiaMW.Business.csproj": {
                 "projectPath": "C:\\AcademiaMW\\src\\AcademiaMW.Business\\AcademiaMW.Business.csproj"
+              },
+              "C:\\AcademiaMW\\src\\AcademiaMW.Core\\AcademiaMW.Core.csproj": {
+                "projectPath": "C:\\AcademiaMW\\src\\AcademiaMW.Core\\AcademiaMW.Core.csproj"
               }
             }
           }
@@ -275,6 +278,14 @@
             "FluentValidation": {
               "target": "Package",
               "version": "[9.3.0, )"
+            },
+            "MediatR": {
+              "target": "Package",
+              "version": "[8.0.1, )"
+            },
+            "MediatR.Extensions.Microsoft.DependencyInjection": {
+              "target": "Package",
+              "version": "[7.0.0, )"
             },
             "Microsoft.AspNetCore.Authentication.JwtBearer": {
               "target": "Package",

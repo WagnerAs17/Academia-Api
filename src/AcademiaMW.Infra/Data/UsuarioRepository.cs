@@ -26,6 +26,13 @@ namespace AcademiaMW.Infra.Data
             await _context.Usuarios.AddAsync(usuario);
         }
 
+        public async Task<bool> AdicionarConfirmacaoUsuario(UsuarioConfirmacao usuarioConfirmacao)
+        {
+            await _context.UsuarioConfirmacao.AddAsync(usuarioConfirmacao);
+
+            return await _context.SaveChangesAsync() > 0;
+        }
+
         public void AtualizarUsuario(Usuario usuario)
         {
             _context.Usuarios.Update(usuario);

@@ -7,7 +7,6 @@ namespace AcademiaMW.Business.Models
     {
         public bool EmailConfirmado { get; private set; }
         public bool Ativo { get; private set; }
-        public ICollection<Permissao> Permissoes { get; set; }
         public string Senha { get; private set; }
 
         public Usuario(string senha)
@@ -19,10 +18,11 @@ namespace AcademiaMW.Business.Models
 
         //EF
         protected Usuario() { }
-
-        public void AtivarEmail()
+        public ICollection<Permissao> Permissoes { get; set; }
+        public void AtivarConta()
         {
             EmailConfirmado = true;
+            Ativo = true;
         }
 
         public void AdicionarHashSenha(string hash)

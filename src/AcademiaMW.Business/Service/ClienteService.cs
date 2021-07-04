@@ -1,7 +1,9 @@
-﻿using AcademiaMW.Business.Models;
+﻿using AcademiaMW.Business.Events;
+using AcademiaMW.Business.Models;
 using AcademiaMW.Business.Models.Repository;
 using AcademiaMW.Business.Notifications;
 using AcademiaMW.Business.Security;
+using AcademiaMW.Core.Communication.Mediator;
 using System;
 using System.Threading.Tasks;
 
@@ -12,18 +14,21 @@ namespace AcademiaMW.Business.Service
         private readonly IClienteRepository _clienteRepository;
         private readonly IBCryptPasswordHasher _passwordHash;
         private readonly IPlanoRepository _planoRepository;
+        private readonly IMediatorHandler _mediator;
 
         public ClienteService
         (
             INotificador notificador,
             IClienteRepository clienteRepository,
             IBCryptPasswordHasher passwordHash,
-            IPlanoRepository planoRepository
+            IPlanoRepository planoRepository,
+            IMediatorHandler mediatorHandler
         ): base(notificador)
         {
             _clienteRepository = clienteRepository;
             _passwordHash = passwordHash;
             _planoRepository = planoRepository;
+            _mediator = mediatorHandler;
         }
 
         public async Task<bool> Matricular(Cliente cliente, Guid planoId)
@@ -55,7 +60,11 @@ namespace AcademiaMW.Business.Service
 
             cliente.Usuario.AdicionarHashSenha(hash);
 
-            return await _clienteRepository.Adicionar(cliente);
+            if (await _clienteRepository.Adicionar(cliente))
+                await _mediator.PublicarEvento(
+                    new CodigoConfirmacaoEvent(cliente.Usuario.Id, cliente.Email.Endereco, cliente.Nome));
+
+            return true;
         }
 
         public async Task<Cliente> ObterCliente(Guid id)

@@ -18,25 +18,24 @@ namespace AcademiaMW.Infra.Email
             _options = options.Value;
         }
 
-        public async Task EnviarEmail(string subject, string message, string email)
+        public async Task EnviarEmail(Core.Domain.Email email)
         {
             var client = new SendGridClient(_options.SendGridKey);
 
             var msg = new SendGridMessage
             {
                 From = new EmailAddress(_options.Email, _options.SendGridUser),
-                Subject = subject,
-                PlainTextContent = message,
-                HtmlContent = message
+                Subject = email.Subject,
+                PlainTextContent = email.Message,
+                HtmlContent = email.Message
             };
 
-            msg.AddTo(new EmailAddress(email));
+            msg.AddTo(new EmailAddress(email.To));
 
             msg.SetClickTracking(false, false);
 
             await client.SendEmailAsync(msg);
         }
-
 
     }
 }

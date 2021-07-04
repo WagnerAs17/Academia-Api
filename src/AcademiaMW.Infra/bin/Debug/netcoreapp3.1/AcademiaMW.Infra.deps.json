@@ -9,6 +9,7 @@
       "AcademiaMW.Infra/1.0.0": {
         "dependencies": {
           "AcademiaMW.Business": "1.0.0",
+          "AcademiaMW.Core": "1.0.0",
           "BCrypt.Net-Next": "4.0.2",
           "Konscious.Security.Cryptography.Argon2": "1.2.1",
           "Microsoft.EntityFrameworkCore": "3.0.0",

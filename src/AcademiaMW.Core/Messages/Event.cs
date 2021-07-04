@@ -3,7 +3,7 @@ using System;
 
 namespace AcademiaMW.Core.Messages
 {
-    public class Event : Message, INotification
+    public abstract class Event : Message, INotification
     {
         public DateTime TimeStamp { get; private set; }
         public Event()
