@@ -2,6 +2,7 @@
 using AcademiaMW.Business.Models.Repository;
 using AcademiaMW.Business.Notifications;
 using AcademiaMW.Business.Service;
+using AcademiaMW.Business.Service.Interfaces;
 using AcademiaMW.Controllers;
 using AcademiaMW.Core.Domain;
 using AcademiaMW.Dtos;
@@ -21,16 +22,19 @@ namespace AcademiaMW.V1.Controllers
     {
         private readonly IClienteService _clienteService;
         private IClienteRepository _clienteRepository;
+        private readonly IUsuarioService _usuarioService;
 
         public ClienteController
         (
             INotificador notificador,
             IClienteService clienteService,
-            IClienteRepository clienteRepository
+            IClienteRepository clienteRepository,
+            IUsuarioService usuarioService
         ) : base(notificador)
         {
             _clienteService = clienteService;
             _clienteRepository = clienteRepository;
+            _usuarioService = usuarioService;
         }
 
         [AllowAnonymous]
@@ -42,7 +46,12 @@ namespace AcademiaMW.V1.Controllers
             if (!ModelState.IsValid)
                 return CustomResponse(ModelState);
 
-            var cliente = ClienteMapper.ClienteDtoParaCliente(novoCliente);
+            if (!_usuarioService.SenhaForte(novoCliente.Senha))
+                return CustomResponse();
+
+            var usuario = _usuarioService.GerarNovoUsuarioCliente(novoCliente.Senha);
+
+            var cliente = ClienteMapper.ClienteDtoParaCliente(novoCliente, usuario);
 
             await _clienteService.Matricular(cliente, novoCliente.PlanoId);
 

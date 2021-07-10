@@ -27,10 +27,10 @@ namespace AcademiaMW.V1.Controllers
             _authService = authService;
         }
 
-        [HttpPost("autenticar")]
+        [HttpPost("autenticar/cliente")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> Login([FromBody] LoginDto login)
+        public async Task<IActionResult> LoginCliente([FromBody] LoginDto login)
         {
             if (!ModelState.IsValid)
                 return CustomResponse(ModelState);
@@ -42,7 +42,25 @@ namespace AcademiaMW.V1.Controllers
                 return CustomResponse();
             }
 
-            return CustomResponse(_authService.ObterResponseToken(cliente));
+            return CustomResponse(_authService.ObterResponseToken(new UsuarioResponseDto(cliente.Id, cliente.Email.Endereco)));
+        }
+
+        [HttpPost("autenticar/funcionario")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<IActionResult> LoginFuncionario([FromBody] LoginDto login)
+        {
+            if (!ModelState.IsValid)
+                return CustomResponse(ModelState);
+
+            var funcionario = await _usuarioService.AutenticarFuncionario(login.Email, login.Senha);
+
+            if (!OperacaoValida())
+            {
+                return CustomResponse();
+            }
+
+            return CustomResponse(_authService.ObterResponseToken(new UsuarioResponseDto(funcionario.Id, funcionario.Email.Endereco)));
         }
 
         [HttpPost("confirmar")]

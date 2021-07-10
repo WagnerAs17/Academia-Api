@@ -8,11 +8,11 @@ namespace AcademiaMW.Business.Validations
         public FuncionarioValidation()
         {
             RuleFor(f => f.EhMaiorDeIdade())
-                .Equal(false)
+                .NotEqual(false)
                 .WithMessage("O funcionario não pode ser menor de idade");
 
             RuleFor(f => f.Nome)
-                .Empty()
+                .NotEmpty()
                 .WithMessage("O nome é obrigatório");
         }
     }

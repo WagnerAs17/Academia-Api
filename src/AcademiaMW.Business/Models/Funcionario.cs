@@ -19,7 +19,7 @@ namespace AcademiaMW.Business.Models
         public Funcionario
         (
             string nome, string email, string cpf, 
-            string senha, Guid cargoId, DateTime dataNascimento
+            Usuario usuario, Guid cargoId, DateTime dataNascimento
         )
         {
             Nome = nome;
@@ -27,7 +27,7 @@ namespace AcademiaMW.Business.Models
             CPF = new CPF(cpf);
             CargoId = cargoId;
             DataNascimento = dataNascimento;
-            Usuario = new Usuario(senha);
+            Usuario = usuario;
             Ativo = false;
         }
 
@@ -52,12 +52,12 @@ namespace AcademiaMW.Business.Models
         {
             public static Funcionario CriarFuncionario(
                 string nome, string email, string cpf, 
-                string senha, Guid cargoId, DateTime dataNascimento
+                Usuario usuario, Guid cargoId, DateTime dataNascimento
             )
             {
                 return new Funcionario(
                     nome, email, cpf,
-                    senha, cargoId, dataNascimento
+                    usuario, cargoId, dataNascimento
                 );
             }
         }

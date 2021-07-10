@@ -13,20 +13,27 @@ namespace AcademiaMW.V1.Controllers
     public class FuncionarioController : MainController
     {
         private readonly IFuncionarioService _funcionarioService;
+        private readonly IUsuarioService _usuarioService;
 
         public FuncionarioController
         (
             INotificador notificador,
-            IFuncionarioService funcionarioService
+            IFuncionarioService funcionarioService,
+            IUsuarioService usuarioService
         ) : base(notificador)
         {
             _funcionarioService = funcionarioService;
+            _usuarioService = usuarioService;
         }
 
         [HttpPost]
         public async Task<IActionResult> Contratar([FromBody] FuncionarioDto funcionarioDto)
         {
-            var funcionario = FuncionarioMapper.FuncionarioDtoParaFuncionario(funcionarioDto);
+            if (!ModelState.IsValid) return CustomResponse(ModelState);
+
+            var usuario = _usuarioService.GerarNovoUsuarioFuncionario();
+
+            var funcionario = FuncionarioMapper.FuncionarioDtoParaFuncionario(funcionarioDto, usuario);
 
             await _funcionarioService.Contratar(funcionario);
 

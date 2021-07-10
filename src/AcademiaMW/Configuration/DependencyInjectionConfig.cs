@@ -39,6 +39,7 @@ namespace AcademiaMW.Configuration
             services.AddMediatR(typeof(Startup));
             services.AddScoped<IMediatorHandler, MediatorHandler>();
             services.AddScoped<INotificationHandler<CodigoConfirmacaoEvent>, UsuarioEvent>();
+            services.AddScoped<INotificationHandler<NovoFuncionarioEvent>, UsuarioEvent>();
             services.AddScoped<IEmailService, EmailService>();
         }
 

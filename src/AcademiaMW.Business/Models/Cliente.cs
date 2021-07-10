@@ -63,11 +63,11 @@ namespace AcademiaMW.Business.Models
         public static class ClienteFactory
         {
             public static Cliente CriarClienteComContrato(
-                string senha, string nome, DateTime dataNascimento, 
+                Usuario usuario, string nome, DateTime dataNascimento, 
                 string cpf, string email)
             {
                 return new Cliente(
-                    new Usuario(senha), 
+                    usuario, 
                     nome, dataNascimento, cpf, email);
             }
         }

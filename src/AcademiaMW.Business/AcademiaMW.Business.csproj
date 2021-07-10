@@ -8,4 +8,8 @@
 	  <ProjectReference Include="..\AcademiaMW.Core\AcademiaMW.Core.csproj" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <Folder Include="Enum\" />
+	</ItemGroup>
+
 </Project>

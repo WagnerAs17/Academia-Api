@@ -8,6 +8,7 @@ namespace AcademiaMW.Business.Models.Repository
     {
         Task AdicionarAsync(Usuario usuario);
         Task<Cliente> ObterCliente(string email);
+        Task<Funcionario> ObterFuncionario(string email);
         void RemoverUsuario(Usuario usuario);
         void AtualizarUsuario(Usuario usuario);
         Task<IEnumerable<Usuario>> ObterTodos();

@@ -22,6 +22,12 @@ namespace AcademiaMW.Infra.Data
                 .FirstOrDefaultAsync(x => x.Email.Endereco == email);
         }
 
+        public async Task<Funcionario> ObterFuncionario(string email)
+        {
+            return await _context.Funcionarios.Include(x => x.Usuario)
+                .FirstOrDefaultAsync(x => x.Email.Endereco == email);
+        }
+
         public async Task<UsuarioConfirmacao> ObterConfirmacaoUsuario(Guid usuarioId)
         {
             return await _context.UsuarioConfirmacao.FirstOrDefaultAsync(x => x.UsuarioId == usuarioId && x.Ativo);

@@ -21,9 +21,9 @@ namespace AcademiaMW.Services
             _settings = settings.Value;
         }
 
-        public LoginResponseDto ObterResponseToken(Cliente cliente)
+        public LoginResponseDto ObterResponseToken(UsuarioResponseDto usuario)
         {
-            var identityClaims = ObterClaims(cliente);
+            var identityClaims = ObterClaims(usuario);
 
             var encondedToken = GerarEncodedToken(identityClaims);
 
@@ -33,18 +33,18 @@ namespace AcademiaMW.Services
                 ExpiresIn = TimeSpan.FromHours(_settings.ExpiracaoHoras).TotalSeconds,
                 UsuarioToken = new UsuarioTokenDto
                 {
-                    Id = cliente.Id,
-                    Email = cliente.Email.Endereco,
+                    Id = usuario.Id,
+                    Email = usuario.Email,
                     Claims = identityClaims.Claims.Select(c => new ClaimDto(c.Type, c.Value))
                 }
             };
         }
 
-        private ClaimsIdentity ObterClaims(Cliente cliente)
+        private ClaimsIdentity ObterClaims(UsuarioResponseDto usuario)
         {
             List<Claim> claims = new List<Claim>();
-            claims.Add(new Claim(JwtRegisteredClaimNames.Sub, cliente.Id.ToString()));
-            claims.Add(new Claim(JwtRegisteredClaimNames.Email, cliente.Email.Endereco));
+            claims.Add(new Claim(JwtRegisteredClaimNames.Sub, usuario.Id.ToString()));
+            claims.Add(new Claim(JwtRegisteredClaimNames.Email, usuario.Email));
             claims.Add(new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()));
             claims.Add(new Claim(JwtRegisteredClaimNames.Nbf, ToUnixEpochDate(DateTime.UtcNow).ToString()));
             claims.Add(new Claim(JwtRegisteredClaimNames.Iat, ToUnixEpochDate(DateTime.UtcNow).ToString(), ClaimValueTypes.Integer64));

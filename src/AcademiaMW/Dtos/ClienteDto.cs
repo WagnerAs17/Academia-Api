@@ -16,7 +16,7 @@ namespace AcademiaMW.Dtos
         public string Cpf { get; set; }
 
         [Required(ErrorMessage = "O campo {0} é obrigatório")]
-        [StringLength(500, ErrorMessage = "O campo {0} deve ter entre {2} e {1} caracteres", MinimumLength = 10)]
+        [StringLength(500, ErrorMessage = "O campo {0} deve ter entre {2} e {1} caracteres", MinimumLength = 4)]
         public string Nome { get; set; }
 
         [Required(ErrorMessage = "O campo {0} é obrigatório")]

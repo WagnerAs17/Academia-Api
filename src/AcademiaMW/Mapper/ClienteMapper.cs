@@ -7,11 +7,11 @@ namespace AcademiaMW.Mapper
 {
     public static class ClienteMapper
     {
-        public static Cliente ClienteDtoParaCliente(ClienteDto clienteDto)
+        public static Cliente ClienteDtoParaCliente(ClienteDto clienteDto, Usuario usuario)
         {
             return Cliente.ClienteFactory
                 .CriarClienteComContrato(
-                    clienteDto.Senha, clienteDto.Nome, 
+                    usuario, clienteDto.Nome, 
                     clienteDto.DataNascimento,
                     clienteDto.Cpf, clienteDto.Email);
         }
