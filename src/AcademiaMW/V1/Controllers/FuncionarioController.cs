@@ -1,4 +1,5 @@
-﻿using AcademiaMW.Business.Notifications;
+﻿using AcademiaMW.Business.Models;
+using AcademiaMW.Business.Notifications;
 using AcademiaMW.Business.Service.Interfaces;
 using AcademiaMW.Controllers;
 using AcademiaMW.Dtos;
@@ -33,11 +34,29 @@ namespace AcademiaMW.V1.Controllers
 
             var usuario = _usuarioService.GerarNovoUsuarioFuncionario();
 
-            var funcionario = FuncionarioMapper.FuncionarioDtoParaFuncionario(funcionarioDto, usuario);
+            var funcionario = funcionarioDto.FuncionarioDtoParaFuncionario(usuario);
 
             await _funcionarioService.Contratar(funcionario);
 
             return CustomResponse(new { Id = funcionario.Usuario.Id });
+        }
+
+        [HttpPost("cargos")]
+        public async Task<IActionResult> AdicionarCargo([FromBody] NovoCargoDto cargo)
+        {
+            if (!ModelState.IsValid) return CustomResponse(ModelState);
+
+            await _funcionarioService.AdicionarNovoCargo(new Cargo(cargo.Nome));
+
+            return CustomResponse();
+        }
+
+        [HttpGet("cargos")]
+        public async Task<IActionResult> ObterCargos()
+        {
+            var cargos = await _funcionarioService.ObterCargos();
+
+            return CustomResponse(cargos.CargosParaCargosDto());
         }
     }
 }

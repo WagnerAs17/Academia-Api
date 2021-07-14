@@ -20,5 +20,10 @@ namespace AcademiaMW.Business.Models
             Ativo = true;
             DataCriacao = DateTime.Today;
         }
+
+        public override bool EhValido()
+        {
+            return !string.IsNullOrEmpty(Nome) || Nome.Length <= 100;
+        }
     }
 }

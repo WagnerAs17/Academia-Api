@@ -5,6 +5,7 @@ using AcademiaMW.Business.Notifications;
 using AcademiaMW.Business.Security;
 using AcademiaMW.Business.Service.Interfaces;
 using AcademiaMW.Core.Communication.Mediator;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace AcademiaMW.Business.Service
@@ -27,11 +28,22 @@ namespace AcademiaMW.Business.Service
             _passwordHash = passwordHash;
         }
 
+        public async Task<IEnumerable<Cargo>> ObterCargos()
+        {
+            return await _funcionarioRepository.ObterCargos();
+        }
         public async Task<bool> Contratar(Funcionario funcionario)
         {
             if (!funcionario.EhValido())
             {
                 Notificar(funcionario.ValidationResult);
+                return false;
+            }
+
+            var cargo = await _funcionarioRepository.ObterCargoPorId(funcionario.CargoId);
+            if (cargo == null)
+            {
+                Notificar("Cargo informado inválido");
                 return false;
             }
 
@@ -58,6 +70,18 @@ namespace AcademiaMW.Business.Service
             Notificar("Erro ao contratar novo funcionário");
 
             return false;
+        }
+
+        public async Task AdicionarNovoCargo(Cargo cargo)
+        {
+            if (!cargo.EhValido())
+            {
+                Notificar("O nome do cargo é obrigatório");
+                return;
+            }
+
+            if(!await _funcionarioRepository.NovoCargo(cargo))
+                Notificar("Um erro ocorreu");
         }
 
         private async Task<bool> FuncionarioContratado(Funcionario funcionario)
