@@ -3,6 +3,7 @@ using AcademiaMW.Business.Models.Repository;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace AcademiaMW.Infra.Data
@@ -72,7 +73,32 @@ namespace AcademiaMW.Infra.Data
 
         public async Task<Usuario> ObterUsuarioPorId(Guid id)
         {
-            return await _context.Usuarios.FirstOrDefaultAsync(x => x.Id == id);
+            return await _context.Usuarios.Include(x => x.Clientes)
+                .Include(x => x.Funcionarios)
+                .FirstOrDefaultAsync(x => x.Id == id);
+        }
+
+        public async Task<Usuario> ObterUsuarioPorEmail(string email)
+        {
+            return await _context.Usuarios.Include(x => x.Funcionarios)
+                .Include(x => x.Clientes)
+                .Where(x => 
+                    x.Clientes.Any(x => x.Email.Endereco == email) || 
+                    x.Funcionarios.Any(x => x.Email.Endereco == email))
+                .FirstOrDefaultAsync();
+        }
+
+        public async Task<IEnumerable<UsuarioConfirmacao>> ObterCodigosAtivosUsuario(Guid usuarioId)
+        {
+            return await _context.UsuarioConfirmacao.Where(x => x.UsuarioId == usuarioId && x.Ativo)
+                .ToListAsync();
+        }
+
+        public async Task DesativarCodigosAtivoUsuario(IEnumerable<UsuarioConfirmacao> codigosAtivosUsuario)
+        {
+            _context.UsuarioConfirmacao.UpdateRange(codigosAtivosUsuario);
+
+            await _context.SaveChangesAsync();
         }
     }
 }

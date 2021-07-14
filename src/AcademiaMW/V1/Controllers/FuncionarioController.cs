@@ -37,7 +37,7 @@ namespace AcademiaMW.V1.Controllers
 
             await _funcionarioService.Contratar(funcionario);
 
-            return CustomResponse();
+            return CustomResponse(new { Id = funcionario.Usuario.Id });
         }
     }
 }

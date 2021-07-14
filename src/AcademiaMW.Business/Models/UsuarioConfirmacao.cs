@@ -33,7 +33,7 @@ namespace AcademiaMW.Business.Models
 
         public bool CodigoValido()
         {
-            return DateTime.Now > DateExpiracao;
+            return DateExpiracao >= DateTime.Now;
         }
 
         public void DesativarCodigoConfirmacao()

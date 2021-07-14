@@ -23,18 +23,21 @@ namespace AcademiaMW.V1.Controllers
         private readonly IClienteService _clienteService;
         private IClienteRepository _clienteRepository;
         private readonly IUsuarioService _usuarioService;
+        private readonly IContaService _contaService;
 
         public ClienteController
         (
             INotificador notificador,
             IClienteService clienteService,
             IClienteRepository clienteRepository,
-            IUsuarioService usuarioService
+            IUsuarioService usuarioService,
+            IContaService contaService
         ) : base(notificador)
         {
             _clienteService = clienteService;
             _clienteRepository = clienteRepository;
             _usuarioService = usuarioService;
+            _contaService = contaService;
         }
 
         [AllowAnonymous]
@@ -46,7 +49,7 @@ namespace AcademiaMW.V1.Controllers
             if (!ModelState.IsValid)
                 return CustomResponse(ModelState);
 
-            if (!_usuarioService.SenhaForte(novoCliente.Senha))
+            if (!_contaService.SenhaForte(novoCliente.Senha))
                 return CustomResponse();
 
             var usuario = _usuarioService.GerarNovoUsuarioCliente(novoCliente.Senha);

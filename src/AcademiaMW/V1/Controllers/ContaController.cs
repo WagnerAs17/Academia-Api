@@ -1,10 +1,12 @@
-﻿using AcademiaMW.Business.Notifications;
+﻿using AcademiaMW.Business.Models;
+using AcademiaMW.Business.Notifications;
 using AcademiaMW.Business.Service.Interfaces;
 using AcademiaMW.Controllers;
 using AcademiaMW.Dtos;
 using AcademiaMW.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Threading.Tasks;
 
 namespace AcademiaMW.V1.Controllers
@@ -14,16 +16,19 @@ namespace AcademiaMW.V1.Controllers
     public class ContaController : MainController
     {
         private readonly IUsuarioService _usuarioService;
+        private readonly IContaService _contaService;
         private readonly AuthService _authService;
 
         public ContaController
         (
             INotificador notificador,
             IUsuarioService usuarioService,
+            IContaService contaService,
             AuthService authService
         ) : base(notificador)
         {
             _usuarioService = usuarioService;
+            _contaService = contaService;
             _authService = authService;
         }
 
@@ -35,14 +40,14 @@ namespace AcademiaMW.V1.Controllers
             if (!ModelState.IsValid)
                 return CustomResponse(ModelState);
 
-            var cliente = await _usuarioService.AutenticarCliente(login.Email, login.Senha);
+            var cliente = await _contaService.AutenticarCliente(login.Email, login.Senha);
 
             if (!OperacaoValida())
             {
                 return CustomResponse();
             }
 
-            return CustomResponse(_authService.ObterResponseToken(new UsuarioResponseDto(cliente.Id, cliente.Email.Endereco)));
+            return CustomResponse(_authService.ObterResponseToken(new UsuarioResponseDto(cliente.Usuario.Id, cliente.Email.Endereco)));
         }
 
         [HttpPost("autenticar/funcionario")]
@@ -53,14 +58,17 @@ namespace AcademiaMW.V1.Controllers
             if (!ModelState.IsValid)
                 return CustomResponse(ModelState);
 
-            var funcionario = await _usuarioService.AutenticarFuncionario(login.Email, login.Senha);
+            var result = await _contaService.AutenticarFuncionario(login.Email, login.Senha);
 
             if (!OperacaoValida())
             {
                 return CustomResponse();
             }
 
-            return CustomResponse(_authService.ObterResponseToken(new UsuarioResponseDto(funcionario.Id, funcionario.Email.Endereco)));
+            if (result.PrimeiroAcesso)
+                return CustomResponse(new { Id = result.Value.Usuario.Id, PrimeiroAcesso = result.PrimeiroAcesso });
+
+            return CustomResponse(_authService.ObterResponseToken(new UsuarioResponseDto(result.Value.Usuario.Id, result.Value.Email.Endereco)));
         }
 
         [HttpPost("confirmar")]
@@ -71,11 +79,34 @@ namespace AcademiaMW.V1.Controllers
             if (!ModelState.IsValid)
                 return CustomResponse(ModelState);
 
-            await _usuarioService.ConfirmarConta(usuarioConfirmacao.Id, usuarioConfirmacao.Codigo);
+            await _contaService.ConfirmarConta(usuarioConfirmacao.Id, usuarioConfirmacao.Codigo);
 
             return CustomResponse();
         }
 
+        [HttpPost("codigo-confirmacao")]
+        public async Task<IActionResult> GerarNovoCodigo([FromBody] CodigoConfirmacaoDto confirmacaoDto)
+        {
+            if (!ModelState.IsValid) return CustomResponse(ModelState);
+
+            var usuarioId = await _usuarioService.GerarNovoCodigoConfirmacao(confirmacaoDto.Email);
+
+            return CustomResponse(new { Id = usuarioId });
+        }
+
+        [HttpPost("nova-senha")]
+        public async Task<IActionResult> ResetarSenha([FromBody] NovaSenhaUsuarioDto novaSenhaUsuarioDto)
+        {
+            if (!ModelState.IsValid) return CustomResponse(ModelState);
+
+            if (!_contaService.SenhaForte(novaSenhaUsuarioDto.Senha))
+                return CustomResponse();
+
+            await _contaService.ResetarSenha(
+                new NovaSenhaUsuario(novaSenhaUsuarioDto.Id, novaSenhaUsuarioDto.Senha, novaSenhaUsuarioDto.Codigo));
+
+            return CustomResponse("Nova senha adicionada com sucesso !");
+        }
 
     }
 }

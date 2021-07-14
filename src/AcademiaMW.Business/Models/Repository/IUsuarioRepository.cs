@@ -17,5 +17,8 @@ namespace AcademiaMW.Business.Models.Repository
         void AtualizarConfirmacaoUsuario(UsuarioConfirmacao usuarioConfirmacao);
         Task<Usuario> ObterUsuarioPorId(Guid id);
         Task<bool> Commit();
+        Task<Usuario> ObterUsuarioPorEmail(string email);
+        Task<IEnumerable<UsuarioConfirmacao>> ObterCodigosAtivosUsuario(Guid usuarioId);
+        Task DesativarCodigosAtivoUsuario(IEnumerable<UsuarioConfirmacao> codigosAtivosUsuario);
     }
 }

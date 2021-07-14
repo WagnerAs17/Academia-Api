@@ -19,6 +19,8 @@ namespace AcademiaMW.Business.Models
         //EF
         protected Usuario() { }
         public ICollection<Permissao> Permissoes { get; set; }
+        public ICollection<Funcionario> Funcionarios { get; set; }
+        public ICollection<Cliente> Clientes { get; set; }
         public void AtivarConta()
         {
             EmailConfirmado = true;
