@@ -68,6 +68,21 @@ namespace AcademiaMW.Business.Service
             return usuario.Id;
         }
         
+        public async Task AdicionarPerfil(Perfil perfil)
+        {
+            await _usuarioRepository.AdicionarPerfil(perfil);
+        }
+
+        public async Task AdicionarPermissaoPerfil(PerfilPermissao perfilPermissao)
+        {
+            await _usuarioRepository.AdicionarPermissaoPerfil(perfilPermissao);
+        }
+
+        public async Task AdicionarPerfilUsuario(UsuarioPerfil usuarioPerfil)
+        {
+            await _usuarioRepository.AdicionarPerfilUsuario(usuarioPerfil);
+        }
+
         private async Task DesativarCodigosAtivoUsuario(Guid usuarioId)
         {
             var codigosAtivoUsuarios = await _usuarioRepository.ObterCodigosAtivosUsuario(usuarioId);

@@ -128,6 +128,45 @@ namespace AcademiaMW.Infra.Migrations
                     b.ToTable("Funcionarios");
                 });
 
+            modelBuilder.Entity("AcademiaMW.Business.Models.Perfil", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("char(36)");
+
+                    b.Property<bool>("Ativo")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<string>("Nome")
+                        .HasColumnType("varchar(100)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Perfis");
+                });
+
+            modelBuilder.Entity("AcademiaMW.Business.Models.PerfilPermissao", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("char(36)");
+
+                    b.Property<string>("ClaimType")
+                        .HasColumnType("varchar(100)");
+
+                    b.Property<string>("ClaimValue")
+                        .HasColumnType("varchar(100)");
+
+                    b.Property<Guid>("PerfilId")
+                        .HasColumnType("char(36)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PerfilId");
+
+                    b.ToTable("PerfilPermissoes");
+                });
+
             modelBuilder.Entity("AcademiaMW.Business.Models.Permissao", b =>
                 {
                     b.Property<Guid>("Id")
@@ -280,6 +319,27 @@ namespace AcademiaMW.Infra.Migrations
                     b.ToTable("UsuarioConfirmacao");
                 });
 
+            modelBuilder.Entity("AcademiaMW.Business.Models.UsuarioPerfil", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("char(36)");
+
+                    b.Property<Guid>("PerfilId")
+                        .HasColumnType("char(36)");
+
+                    b.Property<Guid>("UsuarioId")
+                        .HasColumnType("char(36)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PerfilId");
+
+                    b.HasIndex("UsuarioId");
+
+                    b.ToTable("UsuarioPerfis");
+                });
+
             modelBuilder.Entity("AcademiaMW.Business.Models.Cliente", b =>
                 {
                     b.HasOne("AcademiaMW.Business.Models.Contrato", "Contrato")
@@ -288,7 +348,7 @@ namespace AcademiaMW.Infra.Migrations
                         .IsRequired();
 
                     b.HasOne("AcademiaMW.Business.Models.Usuario", "Usuario")
-                        .WithMany()
+                        .WithMany("Clientes")
                         .HasForeignKey("UsuarioId");
 
                     b.OwnsOne("AcademiaMW.Business.Models.Endereco", "Endereco", b1 =>
@@ -374,7 +434,7 @@ namespace AcademiaMW.Infra.Migrations
                         .IsRequired();
 
                     b.HasOne("AcademiaMW.Business.Models.Usuario", "Usuario")
-                        .WithMany()
+                        .WithMany("Funcionarios")
                         .HasForeignKey("UsuarioId")
                         .IsRequired();
 
@@ -411,6 +471,14 @@ namespace AcademiaMW.Infra.Migrations
                         });
                 });
 
+            modelBuilder.Entity("AcademiaMW.Business.Models.PerfilPermissao", b =>
+                {
+                    b.HasOne("AcademiaMW.Business.Models.Perfil", "Perfil")
+                        .WithMany()
+                        .HasForeignKey("PerfilId")
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("AcademiaMW.Business.Models.Permissao", b =>
                 {
                     b.HasOne("AcademiaMW.Business.Models.Usuario", "Usuario")
@@ -439,6 +507,19 @@ namespace AcademiaMW.Infra.Migrations
                 {
                     b.HasOne("AcademiaMW.Business.Models.Usuario", "Usuario")
                         .WithMany()
+                        .HasForeignKey("UsuarioId")
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("AcademiaMW.Business.Models.UsuarioPerfil", b =>
+                {
+                    b.HasOne("AcademiaMW.Business.Models.Perfil", "Perfil")
+                        .WithMany("UsuarioPerfis")
+                        .HasForeignKey("PerfilId")
+                        .IsRequired();
+
+                    b.HasOne("AcademiaMW.Business.Models.Usuario", "Usuario")
+                        .WithMany("UsuarioPerfis")
                         .HasForeignKey("UsuarioId")
                         .IsRequired();
                 });

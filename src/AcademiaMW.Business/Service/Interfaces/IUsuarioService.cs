@@ -9,5 +9,8 @@ namespace AcademiaMW.Business.Service.Interfaces
         Usuario GerarNovoUsuarioFuncionario();
         Usuario GerarNovoUsuarioCliente(string senha);
         Task<Guid> GerarNovoCodigoConfirmacao(string enderecoEmail);
+        Task AdicionarPerfil(Perfil perfil);
+        Task AdicionarPermissaoPerfil(PerfilPermissao perfilPermissao);
+        Task AdicionarPerfilUsuario(UsuarioPerfil usuarioPerfil);
     }
 }

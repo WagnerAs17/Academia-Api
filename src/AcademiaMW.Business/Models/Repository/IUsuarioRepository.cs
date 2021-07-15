@@ -20,5 +20,8 @@ namespace AcademiaMW.Business.Models.Repository
         Task<Usuario> ObterUsuarioPorEmail(string email);
         Task<IEnumerable<UsuarioConfirmacao>> ObterCodigosAtivosUsuario(Guid usuarioId);
         Task DesativarCodigosAtivoUsuario(IEnumerable<UsuarioConfirmacao> codigosAtivosUsuario);
+        Task AdicionarPerfil(Perfil perfil);
+        Task AdicionarPermissaoPerfil(PerfilPermissao perfilPermissao);
+        Task AdicionarPerfilUsuario(UsuarioPerfil usuarioPerfil);
     }
 }

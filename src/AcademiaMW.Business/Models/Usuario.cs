@@ -21,6 +21,7 @@ namespace AcademiaMW.Business.Models
         public ICollection<Permissao> Permissoes { get; set; }
         public ICollection<Funcionario> Funcionarios { get; set; }
         public ICollection<Cliente> Clientes { get; set; }
+        public ICollection<UsuarioPerfil> UsuarioPerfis { get; set; }
         public void AtivarConta()
         {
             EmailConfirmado = true;

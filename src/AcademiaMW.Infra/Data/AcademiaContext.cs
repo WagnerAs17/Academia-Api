@@ -21,6 +21,9 @@ namespace AcademiaMW.Infra.Data
         public DbSet<PlanoValor> PlanoValor { get; set; }
         public DbSet<UsuarioConfirmacao> UsuarioConfirmacao { get; set; }
         public DbSet<Cargo> Cargo { get; set; }
+        public DbSet<Perfil> Perfis { get; set; }
+        public DbSet<PerfilPermissao> PerfilPermissoes { get; set; }
+        public DbSet<UsuarioPerfil> UsuarioPerfis { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Ignore<ValidationResult>();

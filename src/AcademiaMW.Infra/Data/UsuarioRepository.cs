@@ -100,5 +100,26 @@ namespace AcademiaMW.Infra.Data
 
             await _context.SaveChangesAsync();
         }
+
+        public async Task AdicionarPerfil(Perfil perfil)
+        {
+            await _context.Perfis.AddAsync(perfil);
+
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task AdicionarPermissaoPerfil(PerfilPermissao perfilPermissao)
+        {
+            await _context.PerfilPermissoes.AddAsync(perfilPermissao);
+
+            await _context.SaveChangesAsync();
+        }
+
+        public async Task AdicionarPerfilUsuario(UsuarioPerfil usuarioPerfil)
+        {
+            await _context.UsuarioPerfis.AddAsync(usuarioPerfil);
+
+            await _context.SaveChangesAsync();
+        }
     }
 }
