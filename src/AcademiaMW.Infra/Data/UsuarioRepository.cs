@@ -20,7 +20,7 @@ namespace AcademiaMW.Infra.Data
 
         public async Task<Cliente> ObterCliente(string email)
         {
-            return await _context.Clientes.Include(x => x.Usuario)
+            return await _context.Clientes.AsNoTracking().Include(x => x.Usuario)
                 .FirstOrDefaultAsync(x => x.Email.Endereco == email);
         }
 
@@ -33,7 +33,7 @@ namespace AcademiaMW.Infra.Data
 
         public async Task<UsuarioConfirmacao> ObterConfirmacaoUsuario(Guid usuarioId)
         {
-            return await _context.UsuarioConfirmacao.FirstOrDefaultAsync(x => x.UsuarioId == usuarioId && x.Ativo);
+            return await _context.UsuarioConfirmacao.AsNoTracking().FirstOrDefaultAsync(x => x.UsuarioId == usuarioId && x.Ativo);
         }
 
         public async Task AdicionarAsync(Usuario usuario)
@@ -75,7 +75,7 @@ namespace AcademiaMW.Infra.Data
 
         public async Task<Usuario> ObterUsuarioPorId(Guid id)
         {
-            return await _context.Usuarios.Include(x => x.Clientes)
+            return await _context.Usuarios.AsNoTracking().Include(x => x.Clientes)
                 .Include(x => x.Funcionarios)
                 .Include(x => x.UsuarioPerfis)
                 .FirstOrDefaultAsync(x => x.Id == id);
@@ -83,7 +83,7 @@ namespace AcademiaMW.Infra.Data
 
         public async Task<Usuario> ObterUsuarioPorEmail(string email)
         {
-            return await _context.Usuarios.Include(x => x.Funcionarios)
+            return await _context.Usuarios.AsNoTracking().Include(x => x.Funcionarios)
                 .Include(x => x.Clientes)
                 .Where(x => 
                     x.Clientes.Any(x => x.Email.Endereco == email) || 
@@ -93,7 +93,7 @@ namespace AcademiaMW.Infra.Data
 
         public async Task<IEnumerable<UsuarioConfirmacao>> ObterCodigosAtivosUsuario(Guid usuarioId)
         {
-            return await _context.UsuarioConfirmacao.Where(x => x.UsuarioId == usuarioId && x.Ativo)
+            return await _context.UsuarioConfirmacao.AsNoTracking().Where(x => x.UsuarioId == usuarioId && x.Ativo)
                 .ToListAsync();
         }
 
@@ -132,7 +132,7 @@ namespace AcademiaMW.Infra.Data
 
         public async Task<UsuarioPerfil> ObterPerfilUsuario(Guid usuarioId)
         {
-            return await _context.UsuarioPerfis.Include(x => x.Perfil)
+            return await _context.UsuarioPerfis.AsNoTracking().Include(x => x.Perfil)
                 .ThenInclude(x => x.PerfilPermissoes)
                 .FirstOrDefaultAsync(x => x.UsuarioId == usuarioId);
         }

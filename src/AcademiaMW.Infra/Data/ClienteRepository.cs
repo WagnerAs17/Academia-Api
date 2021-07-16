@@ -21,7 +21,7 @@ namespace AcademiaMW.Infra.Data
        
         public async Task<Cliente> ObterClientePorId(Guid id)
         {
-            return await _context.Clientes
+            return await Query()
                 .FirstOrDefaultAsync(c => c.Id == id);
         }
 
