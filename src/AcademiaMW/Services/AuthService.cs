@@ -1,4 +1,5 @@
 ﻿using AcademiaMW.Business.Models;
+using AcademiaMW.Business.Models.Repository;
 using AcademiaMW.Dtos;
 using AcademiaMW.Extensions;
 using Microsoft.Extensions.Options;
@@ -9,21 +10,32 @@ using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace AcademiaMW.Services
 {
     public class AuthService
     {
         private readonly AppSettings _settings;
+        private readonly IUsuarioRepository _repository;
 
-        public AuthService(IOptions<AppSettings> settings)
+        public AuthService
+        (
+            IOptions<AppSettings> settings,
+            IUsuarioRepository repository
+        )
         {
             _settings = settings.Value;
+            _repository = repository;
         }
 
-        public LoginResponseDto ObterResponseToken(UsuarioResponseDto usuario)
+        public async Task<LoginResponseDto> ObterResponseToken(UsuarioResponseDto usuario)
         {
             var identityClaims = ObterClaims(usuario);
+
+            var perfilUsuario = await _repository.ObterPerfilUsuario(usuario.Id);
+            
+            AddClaimsUsuario(identityClaims, perfilUsuario);
 
             var encondedToken = GerarEncodedToken(identityClaims);
 
@@ -53,6 +65,18 @@ namespace AcademiaMW.Services
             identityClaims.AddClaims(claims);
 
             return identityClaims;
+        }
+
+        private void AddClaimsUsuario(ClaimsIdentity claimsIdentity, UsuarioPerfil usuarioPerfil)
+        {
+            if(usuarioPerfil != null)
+            {
+                foreach (var permissao in usuarioPerfil.Perfil.PerfilPermissoes)
+                {
+                    claimsIdentity.AddClaim(new Claim(permissao.ClaimType, permissao.ClaimValue));
+                }
+            }
+            
         }
 
         private string GerarEncodedToken(ClaimsIdentity identityClaims)

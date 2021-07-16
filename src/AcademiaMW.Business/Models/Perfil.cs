@@ -11,10 +11,17 @@ namespace AcademiaMW.Business.Models
         public Perfil(string nome)
         {
             Nome = nome;
+            Ativo = true;
+        }
+
+        public override bool EhValido()
+        {
+            return !string.IsNullOrEmpty(Nome);
         }
 
         //EF
         protected Perfil() { }
         public ICollection<UsuarioPerfil> UsuarioPerfis { get; set; }
+        public ICollection<PerfilPermissao> PerfilPermissoes { get; set; }
     }
 }

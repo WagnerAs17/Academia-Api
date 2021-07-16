@@ -3,10 +3,12 @@ using AcademiaMW.Business.Notifications;
 using AcademiaMW.Business.Service.Interfaces;
 using AcademiaMW.Controllers;
 using AcademiaMW.Dtos;
+using AcademiaMW.Mapper;
 using AcademiaMW.Services;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace AcademiaMW.V1.Controllers
@@ -47,7 +49,7 @@ namespace AcademiaMW.V1.Controllers
                 return CustomResponse();
             }
 
-            return CustomResponse(_authService.ObterResponseToken(new UsuarioResponseDto(cliente.Usuario.Id, cliente.Email.Endereco)));
+            return CustomResponse(await _authService.ObterResponseToken(new UsuarioResponseDto(cliente.Usuario.Id, cliente.Email.Endereco)));
         }
 
         [HttpPost("autenticar/funcionario")]
@@ -68,7 +70,7 @@ namespace AcademiaMW.V1.Controllers
             if (result.PrimeiroAcesso)
                 return CustomResponse(new { Id = result.Value.Usuario.Id, PrimeiroAcesso = result.PrimeiroAcesso });
 
-            return CustomResponse(_authService.ObterResponseToken(new UsuarioResponseDto(result.Value.Usuario.Id, result.Value.Email.Endereco)));
+            return CustomResponse(await _authService.ObterResponseToken(new UsuarioResponseDto(result.Value.Usuario.Id, result.Value.Email.Endereco)));
         }
 
         [HttpPost("confirmar")]
@@ -106,6 +108,36 @@ namespace AcademiaMW.V1.Controllers
                 new NovaSenhaUsuario(novaSenhaUsuarioDto.Id, novaSenhaUsuarioDto.Senha, novaSenhaUsuarioDto.Codigo));
 
             return CustomResponse("Nova senha adicionada com sucesso !");
+        }
+
+        [HttpPost("perfil")]
+        public async Task<IActionResult> AdicionarPerfil([FromBody] PerfilDto perfil)
+        {
+            if (!ModelState.IsValid) return CustomResponse(ModelState);
+
+            await _usuarioService.AdicionarPerfil(new Perfil(perfil.Nome));
+
+            return CustomResponse();
+        }
+
+        [HttpPost("perfil/{id:guid}/permissoes")]
+        public async Task<IActionResult> AdicionarPermissaoPerfil([FromRoute] Guid id, [FromBody] PerfilPermissaoDto perfilPermissoes)
+        {
+            if (!ModelState.IsValid) return CustomResponse(ModelState);
+
+            await _usuarioService.AdicionarPermissaoPerfil(perfilPermissoes.PerfilPermissoesDtoParaPerfilPermissao(id));
+
+            return CustomResponse();
+        }
+
+        [HttpPost("usuario/{id:guid}/perfil")]
+        public async Task<IActionResult> AdicionarPerfilUsuario([FromRoute] Guid id, [FromBody] UsuarioPerfilDto usuarioPerfil)
+        {
+            if (!ModelState.IsValid) return CustomResponse(ModelState);
+
+            await _usuarioService.AdicionarPerfilUsuario(new UsuarioPerfil(usuarioPerfil.PerfilId, id));
+
+            return CustomResponse();
         }
 
     }

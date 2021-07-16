@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 namespace AcademiaMW.Infra.Data
@@ -25,7 +26,8 @@ namespace AcademiaMW.Infra.Data
 
         public async Task<Funcionario> ObterFuncionario(string email)
         {
-            return await _context.Funcionarios.Include(x => x.Usuario)
+            return await _context.Funcionarios
+                .Include(x => x.Usuario)
                 .FirstOrDefaultAsync(x => x.Email.Endereco == email);
         }
 
@@ -75,6 +77,7 @@ namespace AcademiaMW.Infra.Data
         {
             return await _context.Usuarios.Include(x => x.Clientes)
                 .Include(x => x.Funcionarios)
+                .Include(x => x.UsuarioPerfis)
                 .FirstOrDefaultAsync(x => x.Id == id);
         }
 
@@ -108,9 +111,9 @@ namespace AcademiaMW.Infra.Data
             await _context.SaveChangesAsync();
         }
 
-        public async Task AdicionarPermissaoPerfil(PerfilPermissao perfilPermissao)
+        public async Task AdicionarPermissoesPerfil(IEnumerable<PerfilPermissao> perfilPermissoes)
         {
-            await _context.PerfilPermissoes.AddAsync(perfilPermissao);
+            await _context.PerfilPermissoes.AddRangeAsync(perfilPermissoes);
 
             await _context.SaveChangesAsync();
         }
@@ -120,6 +123,18 @@ namespace AcademiaMW.Infra.Data
             await _context.UsuarioPerfis.AddAsync(usuarioPerfil);
 
             await _context.SaveChangesAsync();
+        }
+
+        public async Task<bool> Existe<T>(Expression<Func<T, bool>> expression) where T :class
+        {
+            return await _context.Set<T>().AnyAsync(expression);
+        }
+
+        public async Task<UsuarioPerfil> ObterPerfilUsuario(Guid usuarioId)
+        {
+            return await _context.UsuarioPerfis.Include(x => x.Perfil)
+                .ThenInclude(x => x.PerfilPermissoes)
+                .FirstOrDefaultAsync(x => x.UsuarioId == usuarioId);
         }
     }
 }

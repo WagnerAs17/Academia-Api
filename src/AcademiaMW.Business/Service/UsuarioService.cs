@@ -7,6 +7,9 @@ using AcademiaMW.Business.Security;
 using AcademiaMW.Business.Service.Interfaces;
 using AcademiaMW.Core.Domain;
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 namespace AcademiaMW.Business.Service
@@ -70,16 +73,42 @@ namespace AcademiaMW.Business.Service
         
         public async Task AdicionarPerfil(Perfil perfil)
         {
+            if (!perfil.EhValido())
+            {
+                Notificar("O nome é obrigatório");
+                return;
+            }
+
             await _usuarioRepository.AdicionarPerfil(perfil);
         }
 
-        public async Task AdicionarPermissaoPerfil(PerfilPermissao perfilPermissao)
+        public async Task AdicionarPermissaoPerfil(IEnumerable<PerfilPermissao> perfilPermissoes)
         {
-            await _usuarioRepository.AdicionarPermissaoPerfil(perfilPermissao);
+            var permissoesValidas = perfilPermissoes.Select(perfilPermissao => perfilPermissao.EhValido());
+
+            if (permissoesValidas.Any(valido => !valido))
+            {
+                Notificar("Tipo e valor da permissão são obrigatórios");
+                return;
+            }
+
+            await _usuarioRepository.AdicionarPermissoesPerfil(perfilPermissoes);
         }
 
         public async Task AdicionarPerfilUsuario(UsuarioPerfil usuarioPerfil)
         {
+            if(!await PerfilExiste(usuarioPerfil.PerfilId))
+            {
+                Notificar("Perfil informado inválido");
+                return;
+            }
+
+            if(!await UsuarioExiste(usuarioPerfil.UsuarioId))
+            {
+                Notificar("Usuario informado inválido");
+                return;
+            }
+
             await _usuarioRepository.AdicionarPerfilUsuario(usuarioPerfil);
         }
 
@@ -94,5 +123,16 @@ namespace AcademiaMW.Business.Service
 
             await _usuarioRepository.DesativarCodigosAtivoUsuario(codigosAtivoUsuarios);
         }
+
+        private async Task<bool> PerfilExiste(Guid id)
+        {
+            return await _usuarioRepository.Existe<Perfil>(x => x.Id == id);
+        }
+
+        private async Task<bool> UsuarioExiste(Guid id)
+        {
+            return await _usuarioRepository.Existe<Usuario>(x => x.Id == id);
+        }
+
     }
 }

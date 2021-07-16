@@ -1,5 +1,6 @@
 ﻿using AcademiaMW.Business.Models;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace AcademiaMW.Business.Service.Interfaces
@@ -10,7 +11,7 @@ namespace AcademiaMW.Business.Service.Interfaces
         Usuario GerarNovoUsuarioCliente(string senha);
         Task<Guid> GerarNovoCodigoConfirmacao(string enderecoEmail);
         Task AdicionarPerfil(Perfil perfil);
-        Task AdicionarPermissaoPerfil(PerfilPermissao perfilPermissao);
+        Task AdicionarPermissaoPerfil(IEnumerable<PerfilPermissao> perfilPermissao);
         Task AdicionarPerfilUsuario(UsuarioPerfil usuarioPerfil);
     }
 }

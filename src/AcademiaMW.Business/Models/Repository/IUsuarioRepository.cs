@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq.Expressions;
 using System.Threading.Tasks;
 
 namespace AcademiaMW.Business.Models.Repository
@@ -21,7 +22,9 @@ namespace AcademiaMW.Business.Models.Repository
         Task<IEnumerable<UsuarioConfirmacao>> ObterCodigosAtivosUsuario(Guid usuarioId);
         Task DesativarCodigosAtivoUsuario(IEnumerable<UsuarioConfirmacao> codigosAtivosUsuario);
         Task AdicionarPerfil(Perfil perfil);
-        Task AdicionarPermissaoPerfil(PerfilPermissao perfilPermissao);
+        Task AdicionarPermissoesPerfil(IEnumerable<PerfilPermissao> perfilPermissoes);
         Task AdicionarPerfilUsuario(UsuarioPerfil usuarioPerfil);
+        Task<bool> Existe<T>(Expression<Func<T, bool>> expression) where T : class;
+        Task<UsuarioPerfil> ObterPerfilUsuario(Guid usuarioId);
     }
 }

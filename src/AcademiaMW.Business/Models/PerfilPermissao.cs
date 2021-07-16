@@ -17,6 +17,11 @@ namespace AcademiaMW.Business.Models
             ClaimValue = claimValue;
         }
 
+        public override bool EhValido()
+        {
+            return !string.IsNullOrEmpty(ClaimValue) && !string.IsNullOrEmpty(ClaimType);
+        }
+
         //EF
         protected PerfilPermissao() { }
     }
