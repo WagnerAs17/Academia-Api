@@ -28,6 +28,7 @@ namespace AcademiaMW.Infra.Data
         {
             return await _context.Funcionarios
                 .Include(x => x.Usuario)
+                .Include(x => x.Cargo)
                 .FirstOrDefaultAsync(x => x.Email.Endereco == email);
         }
 

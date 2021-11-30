@@ -6,6 +6,7 @@ using AcademiaMW.Business.Service.Interfaces;
 using AcademiaMW.Controllers;
 using AcademiaMW.Core.Domain;
 using AcademiaMW.Dtos;
+using AcademiaMW.Extensions;
 using AcademiaMW.Mapper;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -82,6 +83,7 @@ namespace AcademiaMW.V1.Controllers
                 await _clienteRepository.ObterTodos(pagination));
         }
 
+        [ClaimAuthorize("Categoria", "Instrutor")]
         [HttpPost("{id:guid}/treinos")]
         public async Task<IActionResult> CadastrarTreinos([FromRoute] Guid id ,TreinoDto treinoDto)
         {

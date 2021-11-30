@@ -22,7 +22,7 @@ namespace AcademiaMW.Controllers
                 return Ok(new
                 {
                     Success = true,
-                    data = result
+                    data = result != null ? result : "Sucesso"
                 });
             }
 

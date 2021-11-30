@@ -69,7 +69,7 @@ namespace AcademiaMW.V1.Controllers
             if (result.PrimeiroAcesso)
                 return CustomResponse(new { Id = result.Value.Usuario.Id, PrimeiroAcesso = result.PrimeiroAcesso });
 
-            return CustomResponse(await _authService.ObterResponseToken(new UsuarioResponseDto(result.Value.Usuario.Id, result.Value.Email.Endereco)));
+            return CustomResponse(await _authService.ObterResponseToken(new UsuarioResponseDto(result.Value.Usuario.Id, result.Value.Email.Endereco, (int)result.Value.Cargo.Categoria)));
         }
 
         [HttpPost("confirmar")]
