@@ -7,11 +7,13 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Net.Http.Headers;
 
 namespace AcademiaMW.Configuration
 {
     public static class ApiConfig
     {
+        private static readonly string transLogPolicy = "TranslogPolicy";
         public static void AddApiConfiguration(this IServiceCollection services, IConfiguration configuration)
         {
             services.AddControllers();
@@ -30,6 +32,16 @@ namespace AcademiaMW.Configuration
 
             var emailOptions = configuration.GetSection("EmailOptions");
             services.Configure<EmailOptions>(emailOptions);
+
+            services.AddCors(options =>
+            {
+                options.AddPolicy(transLogPolicy, builder =>
+                {
+                    builder.WithOrigins("http://localhost:4200")
+                        .WithHeaders(HeaderNames.ContentType, "x-custom-header")
+                        .WithMethods("GET", "POST", "PUT", "DELETE");
+                });
+            });
         }
 
         public static void UseApiConfiguration(this IApplicationBuilder app, IWebHostEnvironment env)
@@ -42,6 +54,8 @@ namespace AcademiaMW.Configuration
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseCors(transLogPolicy);
 
             app.UseAuthentication();
             app.UseAuthorization();

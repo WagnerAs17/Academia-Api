@@ -1,4 +1,5 @@
-﻿using AcademiaMW.Business.Models;
+﻿using AcademiaMW.Business.Enum;
+using AcademiaMW.Business.Models;
 using AcademiaMW.Business.Notifications;
 using AcademiaMW.Business.Service.Interfaces;
 using AcademiaMW.Controllers;
@@ -46,7 +47,7 @@ namespace AcademiaMW.V1.Controllers
         {
             if (!ModelState.IsValid) return CustomResponse(ModelState);
 
-            await _funcionarioService.AdicionarNovoCargo(new Cargo(cargo.Nome));
+            await _funcionarioService.AdicionarNovoCargo(new Cargo(cargo.Nome, (CategoriaCargo)cargo.Categoria));
 
             return CustomResponse();
         }

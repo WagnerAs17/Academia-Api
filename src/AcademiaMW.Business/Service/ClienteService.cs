@@ -5,6 +5,8 @@ using AcademiaMW.Business.Notifications;
 using AcademiaMW.Business.Security;
 using AcademiaMW.Core.Communication.Mediator;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace AcademiaMW.Business.Service
@@ -65,6 +67,24 @@ namespace AcademiaMW.Business.Service
                     new CodigoConfirmacaoEvent(cliente.Usuario.Id, cliente.Email.Endereco, cliente.Nome));
 
             return true;
+        }
+
+        public async Task<bool> AdicionarTreinoItens(Treino treino, List<TreinoItem> treinoItens)
+        {
+            if (!treino.EhValido())
+            {
+                Notificar("O nome do treino é obrigatório");
+            }
+
+            foreach (var item in treinoItens)
+            {
+                if (!item.EhValido())
+                {
+                    Notificar($"{item.Nome}: o nome deve é obrigatório e deve ter ao menos uma repetição");
+                }
+            }
+
+            return await _clienteRepository.AdicionarTreinoItens(treinoItens);
         }
 
         public async Task<Cliente> ObterCliente(Guid id)

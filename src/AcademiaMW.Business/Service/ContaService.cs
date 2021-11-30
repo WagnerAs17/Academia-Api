@@ -152,7 +152,7 @@ namespace AcademiaMW.Business.Service
 
         private bool ContaClienteConfirmada(Cliente cliente)
         {
-            return !cliente.Usuario.Ativo || !cliente.Usuario.EmailConfirmado;
+            return cliente.Usuario.Ativo && cliente.Usuario.EmailConfirmado;
         }
         private bool PrimeiroAcessoFuncionario(Funcionario funcionario)
         {

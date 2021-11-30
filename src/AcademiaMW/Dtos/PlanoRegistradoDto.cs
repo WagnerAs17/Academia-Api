@@ -8,5 +8,6 @@ namespace AcademiaMW.Dtos
         public decimal Valor { get; set; }
         public decimal Desconto { get; set; }
         public Guid Id { get; set; }
+        public int QuantidadeMeses { get; set; }
     }
 }

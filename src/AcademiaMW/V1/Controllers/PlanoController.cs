@@ -65,5 +65,12 @@ namespace AcademiaMW.V1.Controllers
 
             return CustomResponse();
         }
+
+        [HttpPost("{id:guid}/aulas")]
+        public IActionResult VincularAulaPlano([FromRoute] Guid id)
+        {
+
+            return CustomResponse();
+        }
     }
 }

@@ -21,6 +21,9 @@ namespace AcademiaMW
             if(hostEnvironment.IsDevelopment())
                 builder.AddUserSecrets<Startup>();
 
+
+            builder.AddUserSecrets<Startup>();
+
             Configuration = builder.Build();
         }
 

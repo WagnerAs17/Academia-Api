@@ -1,6 +1,6 @@
 {
   "version": 2,
-  "dgSpecHash": "ZiCSnXJRSRoTEpmIjpbbhUDKJqJ+vmdofETBEPTRgm4ai9D/tVQSVNDWMOxW4h8YVlJ7id7WvjfyxTS5gmgXuQ==",
+  "dgSpecHash": "1uCjlH3cT5wp51DGQDqGruvKnSF6tOw2aB8Nu0+Y5KCh4Aby7XfTNYsXOyV/l9eMXdbmIr3Hk1qHAbn2CFG6NA==",
   "success": true,
   "projectFilePath": "C:\\AcademiaMW\\src\\AcademiaMW\\AcademiaMW.csproj",
   "expectedPackageFiles": [
@@ -123,7 +123,8 @@
     "C:\\Users\\wagne\\.nuget\\packages\\system.threading.tasks.extensions\\4.5.2\\system.threading.tasks.extensions.4.5.2.nupkg.sha512",
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\system.threading.timer\\4.3.0\\system.threading.timer.4.3.0.nupkg.sha512",
     "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\system.xml.readerwriter\\4.3.0\\system.xml.readerwriter.4.3.0.nupkg.sha512",
-    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\system.xml.xdocument\\4.3.0\\system.xml.xdocument.4.3.0.nupkg.sha512"
+    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\system.xml.xdocument\\4.3.0\\system.xml.xdocument.4.3.0.nupkg.sha512",
+    "C:\\Users\\wagne\\.nuget\\packages\\microsoft.netcore.app.host.win-x64\\3.1.18\\microsoft.netcore.app.host.win-x64.3.1.18.nupkg.sha512"
   ],
   "logs": []
 }

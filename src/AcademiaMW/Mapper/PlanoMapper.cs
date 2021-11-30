@@ -29,11 +29,15 @@ namespace AcademiaMW.Mapper
 
                 var valor = plano.PlanoValores.FirstOrDefault(x => x.Ativo).Valor;
                 var desconto =  planoDesconto.Any() ? planoDesconto.FirstOrDefault(x => x.Ativo).Percentual : 0;
+                var quantidadeMeses = planoDesconto.Any() ? planoDesconto.FirstOrDefault(x => x.Ativo).QuantidadeMeses : 0;
 
-                listaPlanos.Add(new PlanoRegistradoDto 
-                { 
-                    Id = plano.Id, Nome = plano.Nome, 
-                    Valor = valor, Desconto = desconto
+                listaPlanos.Add(new PlanoRegistradoDto
+                {
+                    Id = plano.Id,
+                    Nome = plano.Nome,
+                    Valor = valor,
+                    Desconto = desconto,
+                    QuantidadeMeses = quantidadeMeses
                 });
             }
 

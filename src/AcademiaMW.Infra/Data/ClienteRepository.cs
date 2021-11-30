@@ -3,6 +3,7 @@ using AcademiaMW.Business.Models.Repository;
 using AcademiaMW.Core.Domain;
 using Microsoft.EntityFrameworkCore;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
 using System.Threading.Tasks;
@@ -18,14 +19,14 @@ namespace AcademiaMW.Infra.Data
             _context = context;
             _query = _context.Clientes.AsQueryable();
         }
-       
+
         public async Task<Cliente> ObterClientePorId(Guid id)
         {
             return await Query()
                 .FirstOrDefaultAsync(c => c.Id == id);
         }
 
-        private IQueryable<Cliente> Query() 
+        private IQueryable<Cliente> Query()
         {
             return _context.Clientes
                      .AsNoTracking()
@@ -67,6 +68,13 @@ namespace AcademiaMW.Infra.Data
                     || x.CPF.Numero.ToLower().Contains(search)
                     || x.Contrato.PlanoDesconto.PlanoValor.Plano.Nome.ToLower().Contains(search));
             }
+        }
+
+        public async Task<bool> AdicionarTreinoItens(List<TreinoItem> treinoItens)
+        {
+            await _context.TreinoItens.AddRangeAsync(treinoItens);
+
+            return await _context.SaveChangesAsync() > 0;
         }
     }
 }

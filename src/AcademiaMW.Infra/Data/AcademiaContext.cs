@@ -24,6 +24,8 @@ namespace AcademiaMW.Infra.Data
         public DbSet<Perfil> Perfis { get; set; }
         public DbSet<PerfilPermissao> PerfilPermissoes { get; set; }
         public DbSet<UsuarioPerfil> UsuarioPerfis { get; set; }
+        public DbSet<Treino> Treinos { get; set; }
+        public DbSet<TreinoItem> TreinoItens { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Ignore<ValidationResult>();

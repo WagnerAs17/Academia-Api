@@ -81,5 +81,21 @@ namespace AcademiaMW.V1.Controllers
             return ClienteMapper.PaginatedClientesParaClientesDto(
                 await _clienteRepository.ObterTodos(pagination));
         }
+
+        [HttpPost("{id:guid}/treinos")]
+        public async Task<IActionResult> CadastrarTreinos([FromRoute] Guid id ,TreinoDto treinoDto)
+        {
+            var cliente = await _clienteService.ObterCliente(id);
+
+            if (cliente == null)
+                return NotFound();
+
+            var treino = TreinoMapper.TreinoDtoToTreino(cliente, treinoDto);
+            var treinoItens = TreinoMapper.TreinoItensDtoToTreinoItens(treino, treinoDto.TreinoItens);
+
+            await _clienteService.AdicionarTreinoItens(treino, treinoItens);
+
+            return CustomResponse();
+        }
     }
 }

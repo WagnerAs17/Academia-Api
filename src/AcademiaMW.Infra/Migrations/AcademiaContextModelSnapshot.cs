@@ -26,6 +26,9 @@ namespace AcademiaMW.Infra.Migrations
                     b.Property<bool>("Ativo")
                         .HasColumnType("tinyint(1)");
 
+                    b.Property<int>("Categoria")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("DataCriacao")
                         .HasColumnType("datetime(6)");
 
@@ -271,6 +274,58 @@ namespace AcademiaMW.Infra.Migrations
                     b.ToTable("PlanoValor");
                 });
 
+            modelBuilder.Entity("AcademiaMW.Business.Models.Treino", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("char(36)");
+
+                    b.Property<bool>("Ativo")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<Guid>("ClienteId")
+                        .HasColumnType("char(36)");
+
+                    b.Property<DateTime>("DataCriacao")
+                        .HasColumnType("datetime(6)");
+
+                    b.Property<string>("Descricao")
+                        .HasColumnType("varchar(1000)");
+
+                    b.Property<string>("Nome")
+                        .IsRequired()
+                        .HasColumnType("varchar(500)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ClienteId");
+
+                    b.ToTable("Treinos");
+                });
+
+            modelBuilder.Entity("AcademiaMW.Business.Models.TreinoItem", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("char(36)");
+
+                    b.Property<string>("Nome")
+                        .IsRequired()
+                        .HasColumnType("varchar(1000)");
+
+                    b.Property<int>("Repeticao")
+                        .HasColumnType("int");
+
+                    b.Property<Guid>("TreinoId")
+                        .HasColumnType("char(36)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("TreinoId");
+
+                    b.ToTable("TreinoItens");
+                });
+
             modelBuilder.Entity("AcademiaMW.Business.Models.Usuario", b =>
                 {
                     b.Property<Guid>("Id")
@@ -474,7 +529,7 @@ namespace AcademiaMW.Infra.Migrations
             modelBuilder.Entity("AcademiaMW.Business.Models.PerfilPermissao", b =>
                 {
                     b.HasOne("AcademiaMW.Business.Models.Perfil", "Perfil")
-                        .WithMany()
+                        .WithMany("PerfilPermissoes")
                         .HasForeignKey("PerfilId")
                         .IsRequired();
                 });
@@ -500,6 +555,22 @@ namespace AcademiaMW.Infra.Migrations
                     b.HasOne("AcademiaMW.Business.Models.Plano", "Plano")
                         .WithMany("PlanoValores")
                         .HasForeignKey("PlanoId")
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("AcademiaMW.Business.Models.Treino", b =>
+                {
+                    b.HasOne("AcademiaMW.Business.Models.Cliente", "Cliente")
+                        .WithMany()
+                        .HasForeignKey("ClienteId")
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("AcademiaMW.Business.Models.TreinoItem", b =>
+                {
+                    b.HasOne("AcademiaMW.Business.Models.Treino", "Treino")
+                        .WithMany("TreinoItens")
+                        .HasForeignKey("TreinoId")
                         .IsRequired();
                 });
 
